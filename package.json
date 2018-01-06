@@ -4,7 +4,7 @@
   "license": "NONE",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build --aot --prod --build-optimizer",
     "bundle-report": "ng build --stats-json && webpack-bundle-analyzer dist/stats.json",
     "test": "ng test",
