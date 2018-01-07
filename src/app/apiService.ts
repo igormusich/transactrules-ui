@@ -45,12 +45,17 @@ export class ApiClientService {
   * Method findAllAccountTypes
   * @return Full HTTP response as Observable
   */
-  public findAllAccountTypes(): Observable<HttpResponse<AccountType[]>> {
+  public findAllAccountTypes(): Observable<AccountType[]> {
     let uri = `/accountTypes`;
     let headers = new HttpHeaders();
     let params = new HttpParams();
-    return this.sendRequest<AccountType[]>('get', uri, headers, params, null);
+    //return this.sendRequest<AccountType[]>('get', uri, headers, params, null);
+    return this.http.get<AccountType[]>(this.domain +  uri);
   }
+
+  /*getUser(): Observable<User[]> {
+    return this.http.get<User[]>(this.serviceUrl);
+  }*/
 
   /**
   * Method createAccountType
