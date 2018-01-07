@@ -73,11 +73,12 @@ export class ApiClientService {
   * Method findAllAccounts
   * @return Full HTTP response as Observable
   */
-  public findAllAccounts(): Observable<HttpResponse<Account[]>> {
+  public findAllAccounts(): Observable<Account[]> {
     let uri = `/accounts`;
     let headers = new HttpHeaders();
     let params = new HttpParams();
-    return this.sendRequest<Account[]>('get', uri, headers, params, null);
+    //return this.sendRequest<Account[]>('get', uri, headers, params, null);
+    return this.http.get<Account[]>(this.domain +  uri);
   }
 
   /**
