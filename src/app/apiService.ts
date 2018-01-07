@@ -7,8 +7,10 @@ import {
   AccountType,
   AmountType,
   AmountValue,
+  Calendar,
   DateType,
   DateValue,
+  HolidayDate,
   InstalmentSet,
   InstalmentType,
   InstalmentValue,
@@ -26,6 +28,7 @@ import {
   TransactionRuleType,
   TransactionType
 } from './models';
+import { CalendarComponent } from 'app/pages/data/calendar/calendar.component';
 
 /**
 * Created with angular4-swagger-client-generator.
@@ -80,6 +83,15 @@ export class ApiClientService {
     //return this.sendRequest<Account[]>('get', uri, headers, params, null);
     return this.http.get<Account[]>(this.domain +  uri);
   }
+
+  public findAllCalendars(): Observable<Calendar[]> {
+    let uri = `/calendars`;
+    let headers = new HttpHeaders();
+    let params = new HttpParams();
+    //return this.sendRequest<Account[]>('get', uri, headers, params, null);
+    return this.http.get<Calendar[]>(this.domain +  uri);
+  }
+
 
   /**
   * Method createAccount
