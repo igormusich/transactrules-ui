@@ -2,55 +2,22 @@
   <vr-page-header [height]="'180px'" background="url(/assets/img/demo/headers/mac-1.png)" [reverse]="true"></vr-page-header>
 
   <div class="container">
-    <vr-breadcrumbs [currentPage]="'Form Elements'" [names]="['Forms']" [header]="'primary'"></vr-breadcrumbs>
+    <vr-breadcrumbs [currentPage]="'Account Type Details'" [names]="['Settings']" [header]="'primary'"></vr-breadcrumbs>
 
     <div fxLayout="column" fxLayoutGap="24px">
       <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
         <div class="basic-forms card alternative" fxFlex="100%" fxFlex.gt-sm>
           <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
             <div>
-              <div class="title">Basic Forms</div>
-              <div class="sub-title">Simple Material Form Input Elements</div>
-            </div>
-            <div class="actions" fxLayout="row">
-              <button type="button" mat-icon-button matTooltip="Show Code" (click)="showBasicFormSource = !showBasicFormSource">
-                <mat-icon>code</mat-icon>
-              </button>
+              <div class="title">Create Account Type</div>
+              <div class="sub-title">Define data elements and processing rules for Account Type</div>
             </div>
           </div>
 
           <div class="content" fxLayout="column">
-            <div class="source" *ngIf="showBasicFormSource">
-              <code class="html" vrHighlight [innerHTML]="basicFormSource"></code>
-            </div>
-
             <div class="result" fxLayout="column">
               <mat-form-field>
-                <input matInput placeholder="Company" type="text" required>
-              </mat-form-field>
-
-              <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px">
-                <mat-form-field fxFlex>
-                  <input matInput placeholder="First Name" type="text">
-                </mat-form-field>
-
-                <mat-form-field fxFlex>
-                  <input matInput placeholder="Last Name" type="text" required>
-                </mat-form-field>
-              </div>
-
-              <mat-form-field>
-                <input matInput placeholder="Password" type="password" required>
-              </mat-form-field>
-
-              <mat-form-field>
-                <input matInput #lengthHint maxlength="10" placeholder="Hint Label and Max Length" type="text" required>
-                <mat-hint align="start">Try to type in more than 10 letters</mat-hint>
-                <mat-hint align="end">{{ lengthHint.value.length }}/10</mat-hint>
-              </mat-form-field>
-
-              <mat-form-field>
-                <input matInput placeholder="Disabled" disabled>
+                <input matInput placeholder="Name" type="text" required>
               </mat-form-field>
             </div>
           </div>
