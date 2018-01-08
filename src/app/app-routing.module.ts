@@ -21,6 +21,10 @@ const routes: Routes = [
       {
         path: 'settings/account-types',
         loadChildren: 'app/pages/settings/account-type/account-type.module#AccountTypeModule'
+      },
+      {
+        path: 'settings/account-type-details',
+        loadChildren: 'app/pages/settings/account-type-details/account-type-details.module#AccountTypeDetailsModule'
       }
     ]
   },

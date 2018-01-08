@@ -60,7 +60,7 @@ export class RouteHandlerComponent implements OnInit {
     // Define Menu Items here
 
     // Top Level Item (The item to click on so the dropdown opens)
-    const dashboard = new SidenavItem({
+    const data = new SidenavItem({
       name: 'Data',
       icon: 'account_balance',
       subItems: [ ],
@@ -69,11 +69,11 @@ export class RouteHandlerComponent implements OnInit {
 
     // Sub Items for the Top Level Item (The items shown when you clicked on the dropdown item)
     // Note: The Top Level Item is added as "parent" in those items, here "dashboard" (variable from above)
-    const dashboardSubItems = [
+    const dataSubItems = [
       new SidenavItem({
         name: 'Accounts',
         route: '/',
-        parent: dashboard,
+        parent: data,
         subItems: [ ],
         position: 1,
         routerLinkActiveOptions: {
@@ -83,16 +83,16 @@ export class RouteHandlerComponent implements OnInit {
       new SidenavItem({
         name: 'Calendars',
         route: '/data/calendars',
-        parent: dashboard,
+        parent: data,
         subItems: [ ],
-        position: 1
+        position: 2
       })
     ];
 
     // Push the just created Sub Items into the Top Level Item
-    dashboard.subItems.push(...dashboardSubItems);
+    data.subItems.push(...dataSubItems);
 
-    const tables = new SidenavItem({
+    const settings = new SidenavItem({
       name: 'Settings',
       icon: 'settings',
       route: null,
@@ -100,21 +100,28 @@ export class RouteHandlerComponent implements OnInit {
       position: 1
     });
 
-    const tablesSubItems = [
+    const settingsSubItems = [
       new SidenavItem({
         name: 'Account Types',
         route: '/settings/account-types',
-        parent: tables,
+        parent: settings,
+        subItems: [ ],
+        position: 1
+      }),
+      new SidenavItem({
+        name: 'Account Type Details',
+        route: '/settings/account-type-details',
+        parent: settings,
         subItems: [ ],
         position: 1
       })
     ];
 
-    tables.subItems.push(...tablesSubItems);
+    settings.subItems.push(...settingsSubItems);
 
     // Send the created Menu structure to Redux/ngrx (you only need to send the Top Level Item, all dropdown items will be added automatically)
-    this.store.dispatch(new fromSidenav.AddSidenavItemAction(dashboard));
-    this.store.dispatch(new fromSidenav.AddSidenavItemAction(tables));
+    this.store.dispatch(new fromSidenav.AddSidenavItemAction(data));
+    this.store.dispatch(new fromSidenav.AddSidenavItemAction(settings));
   }
 
 }

@@ -6,7 +6,6 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     CommonModule,
     AuthModule,
-  ],
-  declarations: []
+  ]
 })
 export class PagesModule { }

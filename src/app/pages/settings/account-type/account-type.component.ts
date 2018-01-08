@@ -15,6 +15,8 @@ import { ROUTE_TRANSITION } from '../../../app.animation';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { AccountType } from 'app/models/accounttype.model';
 import { ApiClientService } from 'app/apiService';
+import { Router} from "@angular/router";
+
 
 @Component({
   selector: 'vr-account-type',
@@ -33,12 +35,13 @@ export class AccountTypeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _apiService: ApiClientService) {
+  constructor(private apiService: ApiClientService,
+  private router:Router) {
 
   }
 
   ngOnInit() {
-    this.dataSource = new AccountTypeSource(this._apiService);
+    this.dataSource = new AccountTypeSource(this.apiService);
 
   }
 
@@ -46,7 +49,7 @@ export class AccountTypeComponent implements OnInit {
   }
 
   createAccountType(){
-    
+    //this.router.navigate(['settings/account-type-details']);
   }
 }
 

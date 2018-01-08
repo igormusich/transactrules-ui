@@ -10,7 +10,7 @@
 
     <vr-list name="Account Types">
       <div class="actions" fxFlexAlign="center">
-        <button class="create" (click)="createAccountType()" type="button" mat-mini-fab color="primary">
+        <button [routerLink]="['/settings/account-type-details']" class="create"  type="button" mat-mini-fab color="primary">
           <mat-icon>add</mat-icon>
         </button>
       </div>
