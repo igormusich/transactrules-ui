@@ -44,6 +44,10 @@ export class AccountTypeComponent implements OnInit {
 
   ngOnDestroy() {
   }
+
+  createAccountType(){
+    
+  }
 }
 
 export class AccountTypeSource extends DataSource<any> {

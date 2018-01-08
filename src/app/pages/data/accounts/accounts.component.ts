@@ -47,6 +47,10 @@ export class AccountsComponent implements OnInit {
   ngOnDestroy() {
   }
 
+  createAccount(){
+    
+  }
+
 }
 
 export class AccountSource extends DataSource<any> {

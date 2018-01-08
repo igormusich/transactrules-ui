@@ -8,7 +8,12 @@
 
     <vr-breadcrumbs [currentPage]="'Account Types'" [names]="['Settings']" [header]="'primary'"></vr-breadcrumbs>
 
-    <div class="example-container mat-elevation-z8">
+    <vr-list name="Account Types">
+      <div class="actions" fxFlexAlign="center">
+        <button class="create" (click)="createAccountType()" type="button" mat-mini-fab color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
       
       <mat-table #table [dataSource]="dataSource" class="example-table"
                 matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
@@ -28,6 +33,6 @@
       <mat-paginator [length]="dataSource.resultsLength"
                     [pageSize]="10">
       </mat-paginator>
-    </div>
+    </vr-list>
   </div>
 </div>

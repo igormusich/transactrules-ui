@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { MatPaginator, MatSort } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import { List } from '../../../core/list/list.interface';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/catch';
@@ -42,6 +43,10 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnDestroy() {
+  }
+
+  createCalendar(){
+    
   }
 }
 
