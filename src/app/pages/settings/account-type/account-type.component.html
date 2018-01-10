@@ -21,10 +21,42 @@
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
-        <!-- Name Column -->
-        <ng-container cdkColumnDef="name">
+        <ng-container matColumnDef="image">
+          <mat-header-cell class="image-cell" *matHeaderCellDef></mat-header-cell>
+          <mat-cell class="image-cell" *matCellDef="let row">
+            <mat-icon>settings_applications</mat-icon>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Label Name Column -->
+        <ng-container cdkColumnDef="labelName">
           <mat-header-cell *cdkHeaderCellDef> Name </mat-header-cell>
-          <mat-cell *cdkCellDef="let row"> {{row.name}} </mat-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.labelName}} </mat-cell>
+        </ng-container>
+
+        <!-- Class Name Column -->
+        <ng-container cdkColumnDef="className">
+            <mat-header-cell *cdkHeaderCellDef> Class Name </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.className}} </mat-cell>
+        </ng-container>
+        
+        <!-- actions Column -->
+        <ng-container matColumnDef="actions">
+          <mat-header-cell class="actions-cell" *matHeaderCellDef mat-sort-header></mat-header-cell>
+          <mat-cell class="actions-cell" *matCellDef="let row">
+            <button type="button" mat-icon-button [matMenuTriggerFor]="actionsMenu" (click)="$event.stopPropagation()">
+              <mat-icon>more_horiz</mat-icon>
+            </button>
+
+            <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
+              <button (click)="update(row)" mat-menu-item>
+                <span>Modify</span>
+              </button>
+              <button (click)="delete(row)" mat-menu-item>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </mat-cell>
         </ng-container>
 
         <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>

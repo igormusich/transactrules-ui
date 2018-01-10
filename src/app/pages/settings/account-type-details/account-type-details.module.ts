@@ -2,49 +2,70 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
+
+  MatPaginatorModule, 
+  MatProgressSpinnerModule, 
+  MatSortModule, 
+  MatDialogModule,
   MatButtonModule, 
   MatCheckboxModule, 
   MatDatepickerModule, 
   MatIconModule, 
-  MatInputModule, 
+  MatInputModule,
+  MatMenuModule, 
   MatNativeDateModule, 
-  MatRadioModule, 
+  MatRadioModule,
+  MatSnackBarModule, 
   MatSelectModule,
   MatSliderModule,
   MatSlideToggleModule, 
   MatTabsModule,
+  MatTableModule,
   MatTooltipModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { UtilsModule } from '../../../core/utils/utils.module';
 import { PageHeaderModule } from '../../../core/page-header/page-header.module';
+import { ListModule } from '../../../core/list/list.module';
+import { CdkTableModule } from '@angular/cdk/table';
 
 import { AccountTypeDetailsRoutingModule } from './account-type-details-routing.module';
 import { BreadcrumbsModule } from '../../../core/breadcrumbs/breadcrumbs.module';
 import { AccountTypeDetailsComponent } from 'app/pages/settings/account-type-details/account-type-details.component';
+import { PositionTypeDetailsComponent } from './position-type-details/position-type-details.component';
 
 @NgModule({
   imports: [
       CommonModule,
       FormsModule,
+      ListModule,
       BreadcrumbsModule,
       FlexLayoutModule,
-      MatIconModule,
-      MatButtonModule,
-      MatTooltipModule,
+      CdkTableModule,
+      MatPaginatorModule, 
+      MatProgressSpinnerModule, 
+      MatSortModule, 
+      MatDialogModule,
+      MatButtonModule, 
+      MatCheckboxModule, 
+      MatDatepickerModule, 
+      MatIconModule, 
       MatInputModule,
-      MatDatepickerModule,
-      MatNativeDateModule,
+      MatMenuModule, 
+      MatNativeDateModule, 
+      MatRadioModule, 
       MatSelectModule,
-      MatCheckboxModule,
-      MatRadioModule,
-      MatSlideToggleModule,
       MatSliderModule,
+      MatSlideToggleModule,
+      MatSnackBarModule, 
       MatTabsModule,
+      MatTableModule,
+      MatTooltipModule,
       PageHeaderModule,
       AccountTypeDetailsRoutingModule
   ],
-  declarations: [AccountTypeDetailsComponent],
+  entryComponents: [PositionTypeDetailsComponent],
+  declarations: [AccountTypeDetailsComponent, PositionTypeDetailsComponent],
   exports: [AccountTypeDetailsComponent]
 })
 export class AccountTypeDetailsModule { }

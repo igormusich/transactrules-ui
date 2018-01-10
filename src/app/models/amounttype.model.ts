@@ -1,5 +1,6 @@
 
 export interface AmountType {
-  name: string;
+  labelName: string;
+  propertyName: string;
   valueDated: boolean;
 }

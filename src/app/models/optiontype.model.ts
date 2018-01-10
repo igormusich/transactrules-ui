@@ -1,5 +1,6 @@
 
 export interface OptionType {
-  name: string;
+  labelName: string;
   optionListExpression: string;
+  propertyName: string;
 }

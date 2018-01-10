@@ -1,4 +1,5 @@
 
 export interface DateType {
-  name: string;
+  labelName: string;
+  propertyName: string;
 }

@@ -4,7 +4,7 @@
 
   @include responsivePadding();
 
-  .card.alternative {
+  .container {
 
     .content {
       padding-top: 16px;
@@ -13,15 +13,6 @@
         @include responsivePadding(left, true);
         @include responsivePadding(right, true);
         margin-bottom: 12px;
-      }
-
-      .result {
-
-        .description {
-          color: $color__text-dark;
-          margin: 0 0 8px 0;
-          font-size: 14px;
-        }
       }
     }
   }

@@ -29,7 +29,7 @@ export class AccountTypeComponent implements OnInit {
 
   scrollbar: any;
 
-  displayedColumns = ['name'];
+  displayedColumns = ['image','labelName','className','actions'];
   dataSource: AccountTypeSource;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -49,7 +49,11 @@ export class AccountTypeComponent implements OnInit {
   }
 
   createAccountType(){
-    //this.router.navigate(['settings/account-type-details']);
+    this.router.navigate(['settings/account-type-details']);
+  }
+
+  update(accountType:AccountType ){
+    this.router.navigate(['settings/account-type-details'], { queryParams: { className: accountType.className } });
   }
 }
 

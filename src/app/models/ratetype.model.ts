@@ -1,4 +1,5 @@
 
 export interface RateType {
-  name: string;
+  labelName: string;
+  propertyName: string;
 }

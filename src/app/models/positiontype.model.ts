@@ -1,4 +1,5 @@
 
 export interface PositionType {
-  name: string;
+  labelName: string;
+  propertyName: string;
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { 
   MatInputModule, 
   MatPaginatorModule, 
@@ -15,7 +14,6 @@ import {
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { BreadcrumbsModule } from '../../../core/breadcrumbs/breadcrumbs.module';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ScrollbarModule } from '../../../core/scrollbar/scrollbar.module';
@@ -30,7 +28,6 @@ import { AccountTypeComponent } from 'app/pages/settings/account-type/account-ty
     CommonModule,
     AccountTypeRoutingModule,
     FormsModule,
-    RouterModule,
     FlexLayoutModule,
     ScrollbarModule,
     PageHeaderModule,

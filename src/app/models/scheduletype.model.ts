@@ -4,8 +4,9 @@ export interface ScheduleType {
   endDateExpression: string;
   intervalExpression: string;
   isCalculated: boolean;
-  name: string;
+  labelName: string;
   numberOfRepeatsExpression: string;
+  propertyName: string;
   scheduleEndType: string;
   scheduleFrequency: string;
   startDateExpression: string;

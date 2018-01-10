@@ -1,7 +1,8 @@
 import { TransactionRuleType } from './transactionruletype.model';
 
 export interface TransactionType {
+  labelName: string;
   maximumPrecision: boolean;
-  name: string;
+  propertyName: string;
   transactionRules: TransactionRuleType[];
 }
