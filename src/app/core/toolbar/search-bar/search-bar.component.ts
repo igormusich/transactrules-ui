@@ -37,7 +37,6 @@ export class SearchBarComponent implements OnInit {
   ngOnInit() {
     this.store.select(fromRoot.getSidenavItems).filter(Boolean).subscribe((items) => {
       this.sidenavItems = items;
-      this.setupDemoData();
       this.cd.markForCheck();
     });
 
@@ -73,38 +72,6 @@ export class SearchBarComponent implements OnInit {
       }
 
     });
-  }
-
-  setupDemoData() {
-    // Start Demo Data - You can safely remove this
-    const homepage = this.findByRouteRecursive('/');
-    if (homepage) this.frequentlyVisited.push(homepage);
-
-    const allInOneTable = this.findByRouteRecursive('/tables/all-in-one-table');
-    if (allInOneTable) this.frequentlyVisited.push(allInOneTable);
-
-    const chat = this.findByRouteRecursive('/apps/chat');
-    if (chat) this.frequentlyVisited.push(chat);
-
-    const tablePagination = this.findByRouteRecursive('/tables/table-pagination');
-    if (tablePagination) this.frequentlyVisited.push(tablePagination);
-
-    const formElements = this.findByRouteRecursive('/forms/form-elements');
-    if (formElements) this.frequentlyVisited.push(formElements);
-
-    const formWizard = this.findByRouteRecursive('/forms/form-wizard');
-    if (formWizard) this.recentlyVisited.push(formWizard);
-
-    const inbox = this.findByRouteRecursive('/apps/inbox');
-    if (inbox) this.recentlyVisited.push(inbox);
-
-    const tableSorting = this.findByRouteRecursive('/tables/table-sorting');
-    if (tableSorting) this.recentlyVisited.push(tableSorting);
-
-    const editor = this.findByRouteRecursive('/editor');
-    if (editor) this.recentlyVisited.push(editor);
-
-    // End Demo Data - You can safely remove this
   }
 
   findByRouteRecursive(route: string, collection: SidenavItem[] = this.sidenavItems) {

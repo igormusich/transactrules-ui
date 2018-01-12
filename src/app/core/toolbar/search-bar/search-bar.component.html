@@ -27,7 +27,7 @@
           Recently Visited
         </div>
         <div class="items">
-          <div class="item" matRipple *ngFor="let item of recentlyVisited" [routerLink]="item.route" (click)="closeDropdown()">{{ item.name }}</div>
+          <!--<div class="item" matRipple *ngFor="let item of recentlyVisited | item != null" [routerLink]="item.route" (click)="closeDropdown()">{{ item.name }}</div> -->
         </div>
       </div>
       <div class="frequently" fxLayout="column" fxFlex fxFlexOffset="16px">

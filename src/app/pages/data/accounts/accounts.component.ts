@@ -15,7 +15,7 @@ import { ROUTE_TRANSITION } from '../../../app.animation';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
 
-import { ApiClientService } from 'app/apiService';
+import { ApiClientService } from 'app/api-client-service';
 import { Account } from 'app/models/account.model';
 
 @Component({

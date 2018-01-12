@@ -14,8 +14,9 @@ import * as moment from 'moment';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { AccountType } from 'app/models/accounttype.model';
-import { ApiClientService } from 'app/apiService';
+import { ApiClientService } from 'app/api-client-service';
 import { Router} from "@angular/router";
+import { SelectedAccountTypeService } from 'app/selected-account-type.service';
 
 
 @Component({
@@ -35,8 +36,10 @@ export class AccountTypeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private apiService: ApiClientService,
-  private router:Router) {
+  constructor(
+    private apiService: ApiClientService,
+    private router:Router,
+    private selectedAccountTypeService: SelectedAccountTypeService ) {
 
   }
 
@@ -53,7 +56,8 @@ export class AccountTypeComponent implements OnInit {
   }
 
   update(accountType:AccountType ){
-    this.router.navigate(['settings/account-type-details'], { queryParams: { className: accountType.className } });
+    this.selectedAccountTypeService.set(accountType);
+    this.router.navigate(['settings/account-type-details']);
   }
 }
 

@@ -15,7 +15,7 @@ import * as moment from 'moment';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Calendar } from 'app/models/calendar.model';
-import { ApiClientService } from 'app/apiService';
+import { ApiClientService } from 'app/api-client-service';
 
 @Component({
   selector: 'vr-calendar',

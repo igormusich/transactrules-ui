@@ -13,7 +13,8 @@ import { reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { RouteHandlerModule } from './core/route-handler/route-handler.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ApiClientService } from 'app/apiService';
+import { ApiClientService } from 'app/api-client-service';
+import { SelectedAccountTypeService } from './selected-account-type.service';
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ import { ApiClientService } from 'app/apiService';
     PagesModule,
     RouteHandlerModule
   ],
-  providers: [ApiClientService],
+  providers: [ApiClientService, SelectedAccountTypeService],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })

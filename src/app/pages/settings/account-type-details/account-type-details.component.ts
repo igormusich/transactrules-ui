@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTE_TRANSITION } from '../../../app.animation';
-import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -8,6 +7,8 @@ import { PositionType } from 'app/models/positiontype.model';
 import { DataSource } from '@angular/cdk/collections';
 import { AccountType } from 'app/models/accounttype.model';
 import { PositionTypeDetailsComponent } from 'app/pages/settings/account-type-details/position-type-details/position-type-details.component';
+import { ApiClientService } from 'app/api-client-service';
+import { SelectedAccountTypeService } from 'app/selected-account-type.service';
 
 @Component({
   selector: 'vr-account-type-details',
@@ -18,33 +19,29 @@ import { PositionTypeDetailsComponent } from 'app/pages/settings/account-type-de
 })
 export class AccountTypeDetailsComponent implements OnInit {
 
-  sub: Subscription;
-  className:String;
-  accountType: AccountType;
-
+  //displayedColumns = ['image','labelName','propertyName','actions'];
+  displayedColumns = [];
+  accountType: AccountType = new AccountType();
   dataSource: PositionTypesSource;
-  constructor(private route: ActivatedRoute,  
-    private router: Router,
+
+  constructor(
     public composeDialog: MatDialog,
-    private snackBar: MatSnackBar) { 
+    private snackBar: MatSnackBar,
+    private apiService: ApiClientService,
+    private selectedAccountTypeService: SelectedAccountTypeService) { 
 
   }
 
   ngOnInit() {
-    this.sub = this.route
-      .queryParams
-      .subscribe(params => {
-        // Defaults to 0 if no query param provided.
-        this.className = params['className'] || "";
-      });
-
-     this.accountType = new AccountType();
+     this.selectedAccountTypeService.get().subscribe(
+       accType => { 
+          this.accountType = accType; 
+        })
      this.dataSource = new PositionTypesSource(this.accountType.positionTypes);
-
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+
   }
 
   openComposeDialog() {
@@ -66,7 +63,6 @@ export class PositionTypesSource extends DataSource<any> {
     super();
   }
   connect(): Observable<PositionType[]> {
-    
     return Observable.of(this.positionTypes);
   }
   disconnect() { }
