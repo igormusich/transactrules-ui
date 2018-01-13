@@ -8,6 +8,17 @@ export class SelectedAccountTypeService {
 
   constructor() { }
 
+  private accountType:AccountType;
+
+  set(accountType:AccountType){
+      this.accountType = accountType;
+  }
+
+  get():AccountType{
+      return this.accountType;
+  }
+
+  /*
   private subject = new Subject<AccountType>();
 
     set(accountType: AccountType) {
@@ -21,5 +32,5 @@ export class SelectedAccountTypeService {
     get(): Observable<AccountType> {
         return this.subject.asObservable();
     }
-
+*/
 }

@@ -23,7 +23,7 @@ import {
   MatTableModule,
   MatTooltipModule
 } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { UtilsModule } from '../../../core/utils/utils.module';
 import { PageHeaderModule } from '../../../core/page-header/page-header.module';
 import { ListModule } from '../../../core/list/list.module';
@@ -37,7 +37,7 @@ import { PositionTypeDetailsComponent } from './position-type-details/position-t
 @NgModule({
   imports: [
       CommonModule,
-      FormsModule,
+      ReactiveFormsModule,
       ListModule,
       BreadcrumbsModule,
       FlexLayoutModule,

@@ -1,5 +1,5 @@
 import { Inject, Injectable, Optional } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import {
@@ -65,7 +65,7 @@ export class ApiClientService {
   * @param item item
   * @return Full HTTP response as Observable
   */
-  public createAccountType(item: AccountType): Observable<HttpResponse<AccountType>> {
+  public createAccountType(item: AccountType): Observable<HttpResponse<any>> {
     let uri = `/accountTypes`;
     let headers = new HttpHeaders();
     let params = new HttpParams();

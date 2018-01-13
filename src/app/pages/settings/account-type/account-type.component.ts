@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/startWith';
@@ -17,6 +17,7 @@ import { AccountType } from 'app/models/accounttype.model';
 import { ApiClientService } from 'app/api-client-service';
 import { Router} from "@angular/router";
 import { SelectedAccountTypeService } from 'app/selected-account-type.service';
+import { CreateAccountTypeComponent } from 'app/pages/settings/account-type/create-account-type/create-account-type.component';
 
 
 @Component({
@@ -33,26 +34,40 @@ export class AccountTypeComponent implements OnInit {
   displayedColumns = ['image','labelName','className','actions'];
   dataSource: AccountTypeSource;
 
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    public composeDialog: MatDialog,
     private apiService: ApiClientService,
     private router:Router,
-    private selectedAccountTypeService: SelectedAccountTypeService ) {
+    private selectedAccountTypeService: SelectedAccountTypeService,
+    private snackBar: MatSnackBar ) {
 
   }
 
   ngOnInit() {
-    this.dataSource = new AccountTypeSource(this.apiService);
+    this.loadData();
+  }
 
+  loadData(){
+    this.dataSource = new AccountTypeSource(this.apiService);
   }
 
   ngOnDestroy() {
   }
 
   createAccountType(){
-    this.router.navigate(['settings/account-type-details']);
+    const dialogRef = this.composeDialog.open(CreateAccountTypeComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadData;
+        this.snackBar.open(result.message, null, {
+          duration: 3000
+        });
+      }
+    });
   }
 
   update(accountType:AccountType ){

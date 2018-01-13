@@ -22,3 +22,4 @@ export { ScheduledTransaction } from './models/scheduledtransaction.model';
 export { Transaction } from './models/transaction.model';
 export { TransactionRuleType } from './models/transactionruletype.model';
 export { TransactionType } from './models/transactiontype.model';
+export { FieldError } from './errorModel/fielderror.model';

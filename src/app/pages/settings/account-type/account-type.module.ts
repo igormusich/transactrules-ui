@@ -8,12 +8,13 @@ import {
   MatTableModule, 
   MatButtonModule,
   MatCheckboxModule,
+  MatSnackBarModule, 
   MatDialogModule,
   MatIconModule,
   MatMenuModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BreadcrumbsModule } from '../../../core/breadcrumbs/breadcrumbs.module';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ScrollbarModule } from '../../../core/scrollbar/scrollbar.module';
@@ -22,12 +23,13 @@ import { ListModule } from '../../../core/list/list.module';
 
 import { AccountTypeRoutingModule } from './account-type-routing.module';
 import { AccountTypeComponent } from 'app/pages/settings/account-type/account-type.component';
+import { CreateAccountTypeComponent } from 'app/pages/settings/account-type/create-account-type/create-account-type.component';
 
 @NgModule({
   imports: [
     CommonModule,
     AccountTypeRoutingModule,
-    FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     ScrollbarModule,
     PageHeaderModule,
@@ -38,12 +40,14 @@ import { AccountTypeComponent } from 'app/pages/settings/account-type/account-ty
     MatInputModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSnackBarModule, 
     MatIconModule,
     MatProgressSpinnerModule,
   ],
-  declarations: [AccountTypeComponent],
+  declarations: [AccountTypeComponent,CreateAccountTypeComponent],
   exports: [
     AccountTypeComponent
-  ]
+  ],
+  entryComponents: [CreateAccountTypeComponent],
 })
 export class AccountTypeModule { }

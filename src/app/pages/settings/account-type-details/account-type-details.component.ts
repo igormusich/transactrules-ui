@@ -9,6 +9,9 @@ import { AccountType } from 'app/models/accounttype.model';
 import { PositionTypeDetailsComponent } from 'app/pages/settings/account-type-details/position-type-details/position-type-details.component';
 import { ApiClientService } from 'app/api-client-service';
 import { SelectedAccountTypeService } from 'app/selected-account-type.service';
+import { FormGroup, FormBuilder, FormControl,Validators } from '@angular/forms';
+import { retry } from 'rxjs/operator/retry';
+
 
 @Component({
   selector: 'vr-account-type-details',
@@ -19,25 +22,39 @@ import { SelectedAccountTypeService } from 'app/selected-account-type.service';
 })
 export class AccountTypeDetailsComponent implements OnInit {
 
-  //displayedColumns = ['image','labelName','propertyName','actions'];
-  displayedColumns = [];
-  accountType: AccountType = new AccountType();
+  displayedColumns = ['image','labelName','propertyName','actions'];
+
   dataSource: PositionTypesSource;
+
+  accountType: AccountType;
+
+  form: FormGroup;
 
   constructor(
     public composeDialog: MatDialog,
     private snackBar: MatSnackBar,
     private apiService: ApiClientService,
-    private selectedAccountTypeService: SelectedAccountTypeService) { 
+    private selectedAccountTypeService: SelectedAccountTypeService,
+    private fb: FormBuilder) { 
+      this.createForm();
 
   }
 
+  createForm(){
+    this.form = this.fb.group({
+      className: new FormControl ('defaultClassName', Validators.required ), // <--- the FormControl called "name"
+      labelName: new FormControl ('defaultLabelName', Validators.required )
+    });
+  }
+
   ngOnInit() {
-     this.selectedAccountTypeService.get().subscribe(
-       accType => { 
-          this.accountType = accType; 
-        })
-     this.dataSource = new PositionTypesSource(this.accountType.positionTypes);
+    this.accountType = this.selectedAccountTypeService.get();
+    this.form.setValue({
+      className: this.accountType.className,
+      labelName: this.accountType.labelName
+    });
+
+    this.dataSource = new PositionTypesSource(this.accountType.positionTypes);
   }
 
   ngOnDestroy() {
@@ -61,9 +78,10 @@ export class PositionTypesSource extends DataSource<any> {
   items: Observable<PositionType[]>;
   constructor(private positionTypes:PositionType[]) {
     super();
+    this.items = Observable.of(positionTypes);
   }
   connect(): Observable<PositionType[]> {
-    return Observable.of(this.positionTypes);
+    return this.items;
   }
   disconnect() { }
 

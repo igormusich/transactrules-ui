@@ -13,16 +13,20 @@
               <div class="sub-title">Define data model and processing rules</div>
             </div>
           </div>
-          <div class="result" fxLayout="column">
-            <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px">
-              <mat-form-field fxFlex>
-                <input [(ngModel)]="accountType.labelName" matInput placeholder="Label Name" type="text" required>
-              </mat-form-field>
-              <mat-form-field fxFlex>
-                <input [(ngModel)]="accountType.className" matInput placeholder="Class Name" type="text" required>
-              </mat-form-field>
+          <form [formGroup]="form" novalidate>
+            <div class="result" fxLayout="column">
+              <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px">
+
+                <mat-form-field fxFlex>
+                  <input formControlName="labelName" matInput placeholder="Label Name" type="text" required>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                  <input formControlName="className" matInput placeholder="Class Name" type="text" required>
+                </mat-form-field>
+
+              </div>
             </div>
-          </div>
+          </form>
           <mat-tab-group>
             <mat-tab label="Positions">
               <vr-list name="">
@@ -74,8 +78,8 @@
                     </mat-cell>
                   </ng-container>
 
-                  <mat-header-row *cdkHeaderRowDef="[]"></mat-header-row>
-                  <mat-row *cdkRowDef="let row; columns: [];"></mat-row>
+                  <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
                 </mat-table>
                 <mat-paginator [length]="dataSource.resultsLength" [pageSize]="10">
                 </mat-paginator>
