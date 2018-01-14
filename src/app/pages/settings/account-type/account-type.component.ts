@@ -21,6 +21,7 @@ import { SelectedAccountTypeService } from 'app/selected-account-type.service';
 import { CreateAccountTypeComponent } from 'app/pages/settings/account-type/create-account-type/create-account-type.component';
 import { saveAs } from 'file-saver/FileSaver';
 import {  dump } from 'js-yaml';
+import { ImportAccountComponent } from 'app/pages/settings/account-type/import-account/import-account.component';
 
 @Component({
   selector: 'vr-account-type',
@@ -78,8 +79,21 @@ export class AccountTypeComponent implements OnInit {
     saveAs(blob, fileName);
   }
 
-  createAccountType(){
+  create(){
     const dialogRef = this.composeDialog.open(CreateAccountTypeComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.dataSource.data.push(result.object);
+        this.dataSource.filter = "";
+        this.snackBar.open(result.message, null, {
+          duration: 3000
+        });
+      }
+    });
+  }
+
+  import(){
+    const dialogRef = this.composeDialog.open(ImportAccountComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.dataSource.data.push(result.object);
