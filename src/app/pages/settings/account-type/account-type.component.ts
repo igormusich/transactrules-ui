@@ -19,7 +19,7 @@ import { ApiClientService } from 'app/api-client-service';
 import { Router} from "@angular/router";
 import { SelectedAccountTypeService } from 'app/selected-account-type.service';
 import { CreateAccountTypeComponent } from 'app/pages/settings/account-type/create-account-type/create-account-type.component';
-
+import { saveAs } from 'file-saver/FileSaver';
 
 @Component({
   selector: 'vr-account-type',
@@ -58,6 +58,15 @@ export class AccountTypeComponent implements OnInit {
   }
 
   ngOnDestroy() {
+  }
+
+
+  private saveToFileSystem(accountType:AccountType) {
+    const fileName = accountType.className + ".json";
+    const contentDispositionHeader: string = 'Content-Disposition: attachment; filename="' + fileName + '"'
+
+    const blob = new Blob([JSON.stringify(accountType)], { type: 'application/json' });
+    saveAs(blob, fileName);
   }
 
   createAccountType(){
