@@ -4,6 +4,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { PositionType } from 'app/models/positiontype.model';
+import { AmountType } from 'app/models/amounttype.model';
 import { DataSource } from '@angular/cdk/collections';
 import { AccountType } from 'app/models/accounttype.model';
 import { PositionTypeDetailsComponent } from 'app/pages/settings/account-type-details/position-type-details/position-type-details.component';
@@ -24,7 +25,8 @@ export class AccountTypeDetailsComponent implements OnInit {
 
   displayedColumns = ['image','labelName','propertyName','actions'];
 
-  dataSource: PositionTypesSource;
+  positionDataSource: PositionTypesSource;
+  amountDataSource: AmountTypesSource;
 
   accountType: AccountType;
 
@@ -53,15 +55,15 @@ export class AccountTypeDetailsComponent implements OnInit {
       className: this.accountType.className,
       labelName: this.accountType.labelName
     });
-
-    this.dataSource = new PositionTypesSource(this.accountType.positionTypes);
+    this.positionDataSource = new PositionTypesSource(this.accountType.positionTypes);
+    this.amountDataSource = new AmountTypesSource(this.accountType.amountTypes);
   }
 
   ngOnDestroy() {
 
   }
 
-  openComposeDialog() {
+  createPositionType() {
     const dialogRef = this.composeDialog.open(PositionTypeDetailsComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -72,15 +74,42 @@ export class AccountTypeDetailsComponent implements OnInit {
     });
   }
 
+  createAccountType() {
+    /*const dialogRef = this.composeDialog.open(PositionTypeDetailsComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.snackBar.open(result, null, {
+          duration: 3000
+        });
+      }
+    });*/
+  }
+
 }
 
-export class PositionTypesSource extends DataSource<any> {
+export class PositionTypesSource extends DataSource<PositionType> {
   items: Observable<PositionType[]>;
   constructor(private positionTypes:PositionType[]) {
     super();
     this.items = Observable.of(positionTypes);
   }
   connect(): Observable<PositionType[]> {
+    return this.items;
+  }
+  disconnect() { }
+
+  isLoadingResults() {
+    return false;
+  }
+}
+
+export class AmountTypesSource extends DataSource<AmountType> {
+  items: Observable<AmountType[]>;
+  constructor(private positionTypes:AmountType[]) {
+    super();
+    this.items = Observable.of(positionTypes);
+  }
+  connect(): Observable<AmountType[]> {
     return this.items;
   }
   disconnect() { }
