@@ -107,13 +107,6 @@ export class RouteHandlerComponent implements OnInit {
         parent: settings,
         subItems: [ ],
         position: 1
-      }),
-      new SidenavItem({
-        name: 'Account Type Details',
-        route: '/settings/account-type-details',
-        parent: settings,
-        subItems: [ ],
-        position: 1
       })
     ];
 

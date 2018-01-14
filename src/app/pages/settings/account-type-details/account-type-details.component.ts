@@ -42,8 +42,8 @@ export class AccountTypeDetailsComponent implements OnInit {
 
   createForm(){
     this.form = this.fb.group({
-      className: new FormControl ('defaultClassName', Validators.required ), // <--- the FormControl called "name"
-      labelName: new FormControl ('defaultLabelName', Validators.required )
+      className: new FormControl ({ value:'', disabled:true }), // <--- the FormControl called "name"
+      labelName: new FormControl ({ value:'', disabled:true })
     });
   }
 

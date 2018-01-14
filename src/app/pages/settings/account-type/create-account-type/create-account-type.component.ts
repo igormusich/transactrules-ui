@@ -28,6 +28,7 @@ export class CreateAccountTypeComponent implements OnInit {
   }
 
   send() {
+
     const accountType = this.form.value;
 
     if(this.form.invalid){
@@ -43,30 +44,16 @@ export class CreateAccountTypeComponent implements OnInit {
     },
     errorResponse => {
       if(errorResponse.status == 422){
-        let fieldMap = new Map<string, string[]>(); 
-
+        
         for (let index in errorResponse.error.fieldErrors) {
           var fieldError: FieldError = errorResponse.error.fieldErrors[index];
           
-          let errors:String[] = fieldMap[fieldError.field];
-
-          if(errors===undefined){
-            fieldMap[fieldError.field]= [fieldError.code]; 
-          }
-          else {
-            errors.push(fieldError.code);
-          }
-        }
-
-        for (let fieldName in fieldMap){
-          const control = this.form.get(fieldName);
-          control.setErrors(fieldMap[fieldName]);
+          const control = this.form.get(fieldError.field);
+          var error = new Map();
+          control.setErrors({ [fieldError.code] : true});
           control.markAsDirty();
         }
-  
-      //const control = this.registrationForm.get(fieldName);
-      //control.setErrors(errors);
-      //control.markAsDirty();
+
       }
     });
   }

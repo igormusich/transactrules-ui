@@ -25,6 +25,9 @@
           <mat-error *ngIf="form.controls['className'].hasError('NotBlank')">
             Class name can't be blank.
           </mat-error>
+          <mat-error *ngIf="form.controls['className'].hasError('name.invalid')">
+            Class name must be valid identifier.
+          </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -33,7 +36,7 @@
  
       <span fxFlex><!-- fill space --></span>
 
-      <button (click)="send()" class="save" fxFlexOffset="8px" mat-raised-button color="primary">
+      <button [disabled]="!form.valid" (click)="send()" class="save" fxFlexOffset="8px" mat-raised-button color="primary">
         SAVE
       </button>
     </div>
