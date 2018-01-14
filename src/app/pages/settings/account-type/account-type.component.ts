@@ -65,6 +65,7 @@ export class AccountTypeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.dataSource.data.push(result.object);
+        this.dataSource.filter = "";
         this.snackBar.open(result.message, null, {
           duration: 3000
         });
