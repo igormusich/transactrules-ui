@@ -55,8 +55,11 @@
               <button (click)="delete(row)" mat-menu-item>
                 <span>Delete</span>
               </button>
-              <button (click)="saveToFileSystem(row)" mat-menu-item>
-                <span>Export</span>
+              <button (click)="saveToJson(row)" mat-menu-item>
+                <span>JSON Export</span>
+              </button>
+              <button (click)="saveToYaml(row)" mat-menu-item>
+                <span>YAML Export</span>
               </button>
             </mat-menu>
           </mat-cell>

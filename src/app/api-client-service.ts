@@ -56,9 +56,17 @@ export class ApiClientService {
     return this.http.get<AccountType[]>(this.domain +  uri);
   }
 
-  /*getUser(): Observable<User[]> {
-    return this.http.get<User[]>(this.serviceUrl);
-  }*/
+  /**
+  * Method findAccountByAccountNumber
+  * @param className className
+  * @return HTTP response as Observable
+  */
+  public deleteAccountTypeByClassName(className: string): Observable<HttpResponse<any>> {
+    let uri = `/accountTypes/${className}`;
+    let headers = new HttpHeaders();
+    let params = new HttpParams();
+    return this.sendRequest<AccountType[]>('delete', uri, headers, params, null);
+  }
 
   /**
   * Method createAccountType

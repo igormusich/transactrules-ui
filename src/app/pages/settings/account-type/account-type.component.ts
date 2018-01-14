@@ -20,6 +20,7 @@ import { Router} from "@angular/router";
 import { SelectedAccountTypeService } from 'app/selected-account-type.service';
 import { CreateAccountTypeComponent } from 'app/pages/settings/account-type/create-account-type/create-account-type.component';
 import { saveAs } from 'file-saver/FileSaver';
+import {  dump } from 'js-yaml';
 
 @Component({
   selector: 'vr-account-type',
@@ -61,11 +62,19 @@ export class AccountTypeComponent implements OnInit {
   }
 
 
-  private saveToFileSystem(accountType:AccountType) {
+  private saveToJson(accountType:AccountType) {
     const fileName = accountType.className + ".json";
     const contentDispositionHeader: string = 'Content-Disposition: attachment; filename="' + fileName + '"'
 
     const blob = new Blob([JSON.stringify(accountType)], { type: 'application/json' });
+    saveAs(blob, fileName);
+  }
+
+  private saveToYaml(accountType:AccountType) {
+    const fileName = accountType.className + ".yaml";
+    const contentDispositionHeader: string = 'Content-Disposition: attachment; filename="' + fileName + '"'
+    
+    const blob = new Blob([dump(accountType)], { type: 'text/json' });
     saveAs(blob, fileName);
   }
 
@@ -85,6 +94,17 @@ export class AccountTypeComponent implements OnInit {
   update(accountType:AccountType ){
     this.selectedAccountTypeService.set(accountType);
     this.router.navigate(['settings/account-type-details']);
+  }
+
+  delete(accountType:AccountType){
+    this.apiService.deleteAccountTypeByClassName(accountType.className)
+      .subscribe(response => {
+        var index= this.dataSource.data.findIndex((item:AccountType) => item.className===accountType.className);
+        this.dataSource.data.splice(index,1);
+        this.dataSource.filter = "";
+        
+        this.snackBar.open("deleted account type", null, {duration:3000});
+      });
   }
 }
 
