@@ -16,6 +16,7 @@ import { FileInput } from 'app/core/input-file/file-input.model';
 export class ImportAccountComponent implements OnInit {
 
   form: FormGroup;
+  accountType:AccountType;
 
   constructor(
     private dialogRef: MatDialogRef<ImportAccountComponent>,
@@ -27,43 +28,60 @@ export class ImportAccountComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       requiredfile: [{ value: undefined, disabled: false }, [Validators.required, FileValidators.maxContentSize(524288)]],
+      className: new FormControl (''), // <--- the FormControl called "name"
+      labelName: new FormControl ('')
+    });
+
+    this.registerOnChange();
+  }
+
+  registerOnChange(): void {
+    this.form.get('requiredfile').valueChanges.subscribe(
+      value => {
+        this.load();
     });
   }
 
-  save(result){
-    var accountType: AccountType
+  save() {
 
-    accountType = safeLoad(result);
+    this.accountType.className = this.form.get('className').value;
+    this.accountType.labelName = this.form.get('labelName').value;
 
-    this.apiService.createAccountType(accountType).subscribe( 
-    response => {
-      this.dialogRef.close( {
-        'message':'Account Type created',
-        'object': response.body
-      } );
-    },
-    errorResponse => {
-      if(errorResponse.status == 422){
-        
-        for (let index in errorResponse.error.fieldErrors) {
-          var fieldError: FieldError = errorResponse.error.fieldErrors[index];
+    this.apiService.createAccountType(this.accountType).subscribe( 
+      response => {
+        this.dialogRef.close( {
+          'message':'Account Type created',
+          'object': response.body
+        } );
+      },
+      errorResponse => {
+        if(errorResponse.status == 422){
+
+          let buffer:string[] = [];
           
-          const control = this.form.get(fieldError.field);
-          var error = new Map();
-          control.setErrors({ [fieldError.code] : true});
-          control.markAsDirty();
+          for (let index in errorResponse.error.fieldErrors) {
+            var fieldError: FieldError = errorResponse.error.fieldErrors[index];
+            
+            const control = this.form.get(fieldError.field);
+            
+            if(control == null){
+               buffer.push('${fieldError.field}: ${fieldError.message}')
+            }
+            else {
+              control.setErrors({ [fieldError.code] : true});
+              control.markAsDirty();
+            }
+
+          }
+
+          let globalErrorMessage = buffer.join('<br/>'); 
+  
+          this.validateAllFormFields(this.form);
         }
-
-      }
-    });
-
+      });
   }
 
-  send() {
-
-    if(this.form.invalid){
-      return;
-    }
+  load() {
 
     const fileControl : FileInput = this.form.get('requiredfile').value;
 
@@ -72,7 +90,10 @@ export class ImportAccountComponent implements OnInit {
     let reader = new FileReader();
 
     reader.onload = () => {
-      this.save(reader.result);  
+      this.accountType = safeLoad(reader.result);
+
+      this.form.get('className').setValue(this.accountType.className);
+      this.form.get('labelName').setValue(this.accountType.labelName);
     };
 
     reader.onerror = function(err) {
@@ -80,9 +101,18 @@ export class ImportAccountComponent implements OnInit {
     }
 
     reader.readAsText(file);
-  
-    
   }
+
+  validateAllFormFields(formGroup: FormGroup) {         //{1}
+  Object.keys(formGroup.controls).forEach(field => {  //{2}
+    const control = formGroup.get(field);             //{3}
+    if (control instanceof FormControl) {             //{4}
+      control.markAsTouched({ onlySelf: true });
+    } else if (control instanceof FormGroup) {        //{5}
+      this.validateAllFormFields(control);            //{6}
+    }
+  });
+}
 
 
 }
