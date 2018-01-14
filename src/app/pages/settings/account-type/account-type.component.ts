@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
+import { MatTableDataSource } from "@angular/material";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/startWith';
@@ -32,7 +33,8 @@ export class AccountTypeComponent implements OnInit {
   scrollbar: any;
 
   displayedColumns = ['image','labelName','className','actions'];
-  dataSource: AccountTypeSource;
+  dataSource: MatTableDataSource<AccountType> | null;
+  items:Observable<AccountType[]>;
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -48,11 +50,11 @@ export class AccountTypeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadData();
-  }
-
-  loadData(){
-    this.dataSource = new AccountTypeSource(this.apiService);
+    //this.loadData();
+    this.items = this.apiService.findAllAccountTypes();
+    this.items.subscribe( accountTypes => {
+      this.dataSource = new MatTableDataSource<AccountType>( accountTypes);
+    } )
   }
 
   ngOnDestroy() {
@@ -62,7 +64,7 @@ export class AccountTypeComponent implements OnInit {
     const dialogRef = this.composeDialog.open(CreateAccountTypeComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loadData;
+        this.dataSource.data.push(result.object);
         this.snackBar.open(result.message, null, {
           duration: 3000
         });
@@ -76,22 +78,6 @@ export class AccountTypeComponent implements OnInit {
   }
 }
 
-export class AccountTypeSource extends DataSource<any> {
-  items: Observable<AccountType[]>;
-  constructor(private apiService: ApiClientService) {
-    super();
-  }
-  connect(): Observable<AccountType[]> {
-    this.items = this.apiService.findAllAccountTypes();
-
-    return this.items;
-  }
-  disconnect() { }
-
-  isLoadingResults() {
-    return false;
-  }
-}
 
 
 
