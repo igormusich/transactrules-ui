@@ -72,7 +72,7 @@
         <mat-row *cdkRowDef="let row; columns: displayedColumns;" (click)="update(row)" class="clickable"></mat-row>
         
       </mat-table>
-      <mat-paginator [length]="dataSource.resultsLength"
+      <mat-paginator [length]="dataSource.data.length"
                     [pageSize]="10">
       </mat-paginator>
     </vr-list>

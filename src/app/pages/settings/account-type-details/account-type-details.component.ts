@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatTableDataSource } from "@angular/material";
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { PositionType } from 'app/models/positiontype.model';
@@ -12,6 +13,13 @@ import { ApiClientService } from 'app/api-client-service';
 import { SelectedAccountTypeService } from 'app/selected-account-type.service';
 import { FormGroup, FormBuilder, FormControl,Validators } from '@angular/forms';
 import { retry } from 'rxjs/operator/retry';
+import { DateType } from 'app/models/datetype.model';
+import { TransactionType } from 'app/models/transactiontype.model';
+import { RateType } from 'app/models/ratetype.model';
+import { ScheduleType } from 'app/models/scheduletype.model';
+import { OptionType } from 'app/models/optiontype.model';
+import { InstalmentType } from 'app/models/instalmenttype.model';
+import { ScheduledTransaction } from 'app/models/scheduledtransaction.model';
 
 
 @Component({
@@ -25,8 +33,16 @@ export class AccountTypeDetailsComponent implements OnInit {
 
   displayedColumns = ['image','labelName','propertyName','actions'];
 
-  positionDataSource: PositionTypesSource;
-  amountDataSource: AmountTypesSource;
+
+  positionDataSource: MatTableDataSource<PositionType> | null;
+  amountDataSource: MatTableDataSource<AmountType> | null;
+  dateDataSource: MatTableDataSource<DateType> | null;
+  transactionDataSource: MatTableDataSource<TransactionType> | null;
+  rateDataSource: MatTableDataSource<RateType> | null;
+  scheduleDataSource: MatTableDataSource<ScheduleType> | null;
+  optionsDataSource: MatTableDataSource<OptionType> | null;
+  instalmentsDataSource: MatTableDataSource<InstalmentType> | null;
+  scheduledTransactionsDataSource: MatTableDataSource<ScheduledTransaction> | null;
 
   accountType: AccountType;
 
@@ -55,8 +71,17 @@ export class AccountTypeDetailsComponent implements OnInit {
       className: this.accountType.className,
       labelName: this.accountType.labelName
     });
-    this.positionDataSource = new PositionTypesSource(this.accountType.positionTypes);
-    this.amountDataSource = new AmountTypesSource(this.accountType.amountTypes);
+
+    this.positionDataSource = new MatTableDataSource<PositionType>(this.accountType.positionTypes);
+    this.amountDataSource = new MatTableDataSource<AmountType>(this.accountType.amountTypes);
+    this.dateDataSource = new MatTableDataSource<DateType> (this.accountType.dateTypes);
+    this.transactionDataSource= new MatTableDataSource<TransactionType>(this.accountType.transactionTypes);
+    this.rateDataSource= new MatTableDataSource<RateType>(this.accountType.rateTypes);
+    this.scheduleDataSource= new MatTableDataSource<ScheduleType>(this.accountType.scheduleTypes);
+    this.optionsDataSource= new  MatTableDataSource<OptionType> (this.accountType.optionTypes);
+    this.instalmentsDataSource= new MatTableDataSource<InstalmentType>(this.accountType.instalmentTypes);
+    this.scheduledTransactionsDataSource = new MatTableDataSource<ScheduledTransaction>(this.accountType.scheduledTransactions);
+  
   }
 
   ngOnDestroy() {
@@ -74,7 +99,7 @@ export class AccountTypeDetailsComponent implements OnInit {
     });
   }
 
-  createAccountType() {
+  createAmountType() {
     /*const dialogRef = this.composeDialog.open(PositionTypeDetailsComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -85,36 +110,4 @@ export class AccountTypeDetailsComponent implements OnInit {
     });*/
   }
 
-}
-
-export class PositionTypesSource extends DataSource<PositionType> {
-  items: Observable<PositionType[]>;
-  constructor(private positionTypes:PositionType[]) {
-    super();
-    this.items = Observable.of(positionTypes);
-  }
-  connect(): Observable<PositionType[]> {
-    return this.items;
-  }
-  disconnect() { }
-
-  isLoadingResults() {
-    return false;
-  }
-}
-
-export class AmountTypesSource extends DataSource<AmountType> {
-  items: Observable<AmountType[]>;
-  constructor(private positionTypes:AmountType[]) {
-    super();
-    this.items = Observable.of(positionTypes);
-  }
-  connect(): Observable<AmountType[]> {
-    return this.items;
-  }
-  disconnect() { }
-
-  isLoadingResults() {
-    return false;
-  }
 }
