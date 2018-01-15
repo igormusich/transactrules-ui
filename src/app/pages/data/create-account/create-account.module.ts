@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { 
   MatInputModule, 
   MatPaginatorModule, 
@@ -10,8 +9,10 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatDialogModule,
+  MatSelectModule,
   MatIconModule,
   MatMenuModule,
+  MatTabsModule
 } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -21,12 +22,9 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { ScrollbarModule } from '../../../core/scrollbar/scrollbar.module';
 import { PageHeaderModule } from '../../../core/page-header/page-header.module';
 import { ListModule } from '../../../core/list/list.module';
+import { CreateAccountRoutingModule} from 'app/pages/data/create-account/create-account-routing.module'
 
-
-import { AccountsRoutingModule } from './accounts-routing.module';
-import { AccountsComponent } from 'app/pages/data/accounts/accounts.component';
-
-
+import { CreateAccountComponent } from './create-account.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -41,11 +39,13 @@ import { AccountsComponent } from 'app/pages/data/accounts/accounts.component';
     MatInputModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSelectModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    AccountsRoutingModule
+    MatTabsModule,
+    CreateAccountRoutingModule
   ],
-  declarations: [AccountsComponent],
-  exports: [AccountsComponent]
+  declarations: [CreateAccountComponent],
+  exports: [CreateAccountComponent]
 })
-export class AccountsModule { }
+export class CreateAccountModule { }
