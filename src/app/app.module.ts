@@ -15,6 +15,7 @@ import { RouteHandlerModule } from './core/route-handler/route-handler.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiClientService } from 'app/api-client-service';
 import { SelectedAccountTypeService } from './selected-account-type.service';
+import { AccountOpenProcessService } from './account-open-process.service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { SelectedAccountTypeService } from './selected-account-type.service';
     PagesModule,
     RouteHandlerModule
   ],
-  providers: [ApiClientService, SelectedAccountTypeService],
+  providers: [ApiClientService, SelectedAccountTypeService,AccountOpenProcessService],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })

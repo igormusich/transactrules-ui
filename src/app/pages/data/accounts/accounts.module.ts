@@ -6,14 +6,17 @@ import {
   MatPaginatorModule, 
   MatProgressSpinnerModule, 
   MatSortModule, 
+  MatSelectModule,
   MatTableModule, 
   MatButtonModule,
   MatCheckboxModule,
   MatDialogModule,
+  MatDatepickerModule,
   MatIconModule,
   MatMenuModule,
 } from '@angular/material';
 
+import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { BreadcrumbsModule } from '../../../core/breadcrumbs/breadcrumbs.module';
@@ -25,6 +28,7 @@ import { ListModule } from '../../../core/list/list.module';
 
 import { AccountsRoutingModule } from './accounts-routing.module';
 import { AccountsComponent } from 'app/pages/data/accounts/accounts.component';
+import { SelectAccountTypeComponent } from './select-account-type/select-account-type.component';
 
 
 @NgModule({
@@ -42,10 +46,13 @@ import { AccountsComponent } from 'app/pages/data/accounts/accounts.component';
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
+    MatSelectModule,
     MatProgressSpinnerModule,
+    ReactiveFormsModule,
     AccountsRoutingModule
   ],
-  declarations: [AccountsComponent],
-  exports: [AccountsComponent]
+  declarations: [AccountsComponent,SelectAccountTypeComponent],
+  exports: [AccountsComponent],
+  entryComponents: [SelectAccountTypeComponent]
 })
 export class AccountsModule { }

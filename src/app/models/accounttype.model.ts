@@ -8,7 +8,7 @@ import { ScheduleType } from './scheduletype.model';
 import { ScheduledTransaction } from './scheduledtransaction.model';
 import { TransactionType } from './transactiontype.model';
 
-export class AccountType {
+export interface AccountType {
   className: string;
   labelName: string;
   amountTypes: AmountType[];
@@ -20,8 +20,4 @@ export class AccountType {
   scheduleTypes: ScheduleType[];
   scheduledTransactions: ScheduledTransaction[];
   transactionTypes: TransactionType[];
-
-  constructor() {
-    
-  }
 }

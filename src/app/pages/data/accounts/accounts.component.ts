@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/startWith';
@@ -17,6 +17,11 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 
 import { ApiClientService } from 'app/api-client-service';
 import { Account } from 'app/models/account.model';
+
+import { SelectAccountTypeComponent } from './select-account-type/select-account-type.component';
+import { AccountOpenProcessService } from '../../../account-open-process.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'vr-accounts',
@@ -35,12 +40,15 @@ export class AccountsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private _apiService: ApiClientService) {
+  constructor(private apiService: ApiClientService, 
+    public composeDialog: MatDialog,
+    public accountOpen: AccountOpenProcessService,
+    public router: Router ) {
 
   }
 
   ngOnInit() {
-    this.dataSource = new AccountSource(this._apiService);
+    this.dataSource = new AccountSource(this.apiService);
 
   }
 
@@ -48,9 +56,14 @@ export class AccountsComponent implements OnInit {
   }
 
   createAccount(){
-    
+    const dialogRef = this.composeDialog.open(SelectAccountTypeComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.accountOpen.set(result.object);
+        this.router.navigate(['/data/create-account']);      
+      }
+    }); 
   }
-
 }
 
 export class AccountSource extends DataSource<any> {

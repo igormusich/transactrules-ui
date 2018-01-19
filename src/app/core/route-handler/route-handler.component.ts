@@ -81,18 +81,11 @@ export class RouteHandlerComponent implements OnInit {
         }
       }),
       new SidenavItem({
-        name: 'Create Account',
-        route: '/data/create-account',
-        parent: data,
-        subItems: [ ],
-        position: 2
-      }),
-      new SidenavItem({
         name: 'Calendars',
         route: '/data/calendars',
         parent: data,
         subItems: [ ],
-        position: 3
+        position: 2
       })
     ];
 

@@ -18,19 +18,4 @@ export class SelectedAccountTypeService {
       return this.accountType;
   }
 
-  /*
-  private subject = new Subject<AccountType>();
-
-    set(accountType: AccountType) {
-        this.subject.next(accountType);
-    }
-
-    clear() {
-        this.subject.next();
-    }
-
-    get(): Observable<AccountType> {
-        return this.subject.asObservable();
-    }
-*/
 }

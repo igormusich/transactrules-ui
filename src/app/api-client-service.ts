@@ -26,7 +26,9 @@ import {
   ScheduledTransaction,
   Transaction,
   TransactionRuleType,
-  TransactionType
+  TransactionType,
+  AccountOpenCreateRequest,
+  Process
 } from './models';
 import { CalendarComponent } from 'app/pages/data/calendar/calendar.component';
 
@@ -98,6 +100,13 @@ export class ApiClientService {
     let params = new HttpParams();
     //return this.sendRequest<Account[]>('get', uri, headers, params, null);
     return this.http.get<Calendar[]>(this.domain +  uri);
+  }
+
+  public createAccountOpen(request: AccountOpenCreateRequest): Observable<HttpResponse<Process>> {
+    let uri = `/accountOpen`;
+    let headers = new HttpHeaders();
+    let params = new HttpParams();
+    return this.sendRequest<Process>('post', uri, headers, params, JSON.stringify(request));
   }
 
 

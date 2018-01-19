@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTE_TRANSITION } from '../../../app.animation';
+import { MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
+import { Process } from 'app/models/process.model';
+import { AccountOpenProcessService } from '../../../account-open-process.service'
+
 
 @Component({
   selector: 'vr-create-account',
@@ -13,9 +17,21 @@ export class CreateAccountComponent implements OnInit {
   selectedIndex = 0;
   lastIndex = 3;
 
-  constructor() { }
+  process: Process;
+
+  constructor(
+    public accountOpen: AccountOpenProcessService
+    ) { 
+
+    }
 
   ngOnInit() {
+    this.process = this.accountOpen.get();
+  }
+
+  renderProcess(process: Process){
+    this.process = process;
+
   }
 
   previousPage() {
