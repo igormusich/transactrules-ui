@@ -15,9 +15,13 @@ import { FormGroup, FormBuilder, FormControl,Validators } from '@angular/forms';
 })
 export class CreateAccountComponent implements OnInit {
 
+
   selectedIndex = 0;
   lastIndex = 3;
   details_form: FormGroup;
+  schedule_form: FormGroup;
+  instalment_form: FormGroup;
+
   process: Process;
 
   constructor(
@@ -29,9 +33,13 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit() {
     this.process = this.accountOpen.get();
     this.details_form = this.toDetailsFormGroup(this.process);
+    this.schedule_form = this.toScheduleFormGroup(this.process);
+    this.instalment_form = this.toInstalmentFormGroup(this.process);
   }
 
-  toDetailsFormGroup(process: Process ) {
+
+
+  toDetailsFormGroup(process: Process ): FormGroup {
     let group: any = {};
 
     process.dateSet.data.forEach(element => {
@@ -57,6 +65,28 @@ export class CreateAccountComponent implements OnInit {
     if(process.calendarSet != null && process.calendarSet.data != null){
       group[process.calendarSet.data.propertyName] = new FormControl(process.calendarSet.data.value, Validators.required);
     }
+
+    return new FormGroup(group);
+  }
+
+  toScheduleFormGroup(process: Process ): FormGroup {
+    let group: any = {};
+
+    process.scheduleSet.data.forEach(element => {
+      group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
+                                                               : new FormControl(element.value || '');
+    });
+
+    return new FormGroup(group);
+  }
+
+  toInstalmentFormGroup(process: Process ): FormGroup {
+    let group: any = {};
+
+    process.instalmentSet.data.forEach(element => {
+      group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
+                                                               : new FormControl(element.value || '');
+    });
 
     return new FormGroup(group);
   }

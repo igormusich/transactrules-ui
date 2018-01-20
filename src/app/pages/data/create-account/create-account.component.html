@@ -5,100 +5,87 @@
     <vr-breadcrumbs [currentPage]="'Account Open'" [names]="['Data']" [header]="'primary'"></vr-breadcrumbs>
 
     <div class="card alternative">
-      <mat-tab-group class="form-wizard" [(selectedIndex)]="selectedIndex">
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
-              <span class="badge primary">1</span>
-              <span>Account details</span>
-            </div>
-          </ng-template>
+      <mat-horizontal-stepper [linear]="isLinear">
+        <mat-step [stepControl]="details_form">
           <form [formGroup]="details_form" novalidate>
+            <ng-template matStepLabel>Enter account details</ng-template>
             <div class="account-details">
               <h3>Calendar</h3>
               <div *ngIf="process.calendarSet.data">
                 <div class="cart" fxLayout="column" fxLayoutGap="24px">
-                  <mat-form-field >
+                  <mat-form-field>
                     <mat-select formControlName="{{process.calendarSet.data.propertyName}}" placeholder="{{process.calendarSet.data.labelName}}">
                       <mat-option *ngFor="let calendarName of process.calendarSet.data.calendarNames" [value]="calendarName">
                         {{calendarName}}
                       </mat-option>
                     </mat-select>
                     <!--<mat-error *ngIf="details_form.controls['{{process.calendarSet.data.propertyName}}'].hasError('required')">
-                    Calendar is required.
-                  </mat-error>-->
+                            Calendar is required.
+                          </mat-error>-->
                   </mat-form-field>
                 </div>
               </div>
               <h3>Dates</h3>
-
               <div class="cart" fxLayout="column" fxLayoutGap="24px">
                 <div *ngFor="let dateElement of process.dateSet.data; let i=index">
                   <mat-form-field>
-                    <input matInput [matDatepicker]="datepickerRef" placeholder="{{dateElement.labelName}}" name="{{dateElement.propertyName}}">
+                    <input matInput [matDatepicker]="datepickerRef" placeholder="{{dateElement.labelName}}" formControlName="{{dateElement.propertyName}}">
                     <mat-datepicker-toggle matSuffix [for]="datepickerRef"></mat-datepicker-toggle>
                   </mat-form-field>
                   <mat-datepicker #datepickerRef></mat-datepicker>
                 </div>
               </div>
-
+            </div>
+            <div>
+              <button mat-button matStepperNext>Next</button>
             </div>
           </form>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-              <span class="badge primary">2</span>
-              <span>Schedules</span>
-            </div>
-          </ng-template>
-          <div class="account-details">
-            <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-
-            </div>
-
-            <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-
+        </mat-step>
+        <mat-step [stepControl]="schedule_form">
+          <form [formGroup]="schedule_form">
+            <ng-template matStepLabel>Enter schedules</ng-template>
+            <div class="account-details">
+              <div class="cart" fxLayout="column" fxLayoutGap="24px">
+                <div *ngFor="let element of process.scheduleSet.data; let i=index">
+                  <mat-form-field>
+                    <input matInput placeholder="{{element.labelName}}" formControlName="{{element.propertyName}}" required>
+                  </mat-form-field>
+                </div>
+              </div>
             </div>
 
-            <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
             </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="instalment_form">
+          <form [formGroup]="instalment_form">
+            <ng-template matStepLabel>Calculate Instalments </ng-template>
+            <div class="account-details">
+                <div class="cart" fxLayout="column" fxLayoutGap="24px">
+                  <div *ngFor="let element of process.instalmentSet.data; let i=index">
+                    <mat-form-field>
+                      <input matInput placeholder="{{element.labelName}}" formControlName="{{element.propertyName}}" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          You are now done.
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
           </div>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-              <span class="badge primary">3</span>
-              <span>Instalments</span>
-            </div>
-          </ng-template>
-          <div class="account-details" fxLayout="column">
-            <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-
-            </div>
-
-          </div>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
-              <span class="badge primary">4</span>
-              <span>Confirmation</span>
-            </div>
-          </ng-template>
-          <div class="confirmation" fxLayout="column">
-
-
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-
-      <div class="tab-navigation" fxLayout="row" fxLayoutAlign="space-between">
-        <button type="button" mat-raised-button color="primary" (click)="previousPage()" [disabled]="selectedIndex == 0">PREVIOUS</button>
-        <button type="button" mat-raised-button color="primary" (click)="nextPage()" *ngIf="selectedIndex !== lastIndex">NEXT</button>
-        <button type="button" mat-raised-button color="accent" *ngIf="selectedIndex == lastIndex">CREATE ACCOUNT</button>
-      </div>
+        </mat-step>
+      </mat-horizontal-stepper>
     </div>
   </div>
 </div>

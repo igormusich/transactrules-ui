@@ -19,7 +19,8 @@ import {
   MatRadioModule,
   MatSlideToggleModule,
   MatSliderModule,
-  MatTabsModule
+  MatTabsModule,
+  MatStepperModule
 } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -59,6 +60,7 @@ import { CreateAccountComponent } from './create-account.component';
     MatTabsModule, 
     MatProgressSpinnerModule,
     MatTabsModule,
+    MatStepperModule,
     CreateAccountRoutingModule
   ],
   declarations: [CreateAccountComponent],
