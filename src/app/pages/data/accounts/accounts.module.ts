@@ -34,7 +34,6 @@ import { SelectAccountTypeComponent } from './select-account-type/select-account
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     FlexLayoutModule,
     ScrollbarModule,
     PageHeaderModule,

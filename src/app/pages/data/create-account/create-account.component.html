@@ -13,21 +13,37 @@
               <span>Account details</span>
             </div>
           </ng-template>
-          <div class="shopping-cart">
-            <form [formGroup]="form" novalidate>
-              <div class="cart" fxLayout="column" fxLayoutGap="24px">
-                  <div *ngFor="let dateElement of process.dateSet.data; let i=index">
-                  <mat-form-field>
-                      <input matInput [matDatepicker]="datepickerRef" 
-                        placeholder="{{dateElement.labelName}}" 
-                        name="{{dateElement.propertyName}}" >
-                      <mat-datepicker-toggle matSuffix [for]="datepickerRef"></mat-datepicker-toggle>
-                    </mat-form-field>
-                    <mat-datepicker #datepickerRef></mat-datepicker>
-                  </div>
+          <form [formGroup]="details_form" novalidate>
+            <div class="account-details">
+              <h3>Calendar</h3>
+              <div *ngIf="process.calendarSet.data">
+                <div class="cart" fxLayout="column" fxLayoutGap="24px">
+                  <mat-form-field >
+                    <mat-select formControlName="{{process.calendarSet.data.propertyName}}" placeholder="{{process.calendarSet.data.labelName}}">
+                      <mat-option *ngFor="let calendarName of process.calendarSet.data.calendarNames" [value]="calendarName">
+                        {{calendarName}}
+                      </mat-option>
+                    </mat-select>
+                    <!--<mat-error *ngIf="details_form.controls['{{process.calendarSet.data.propertyName}}'].hasError('required')">
+                    Calendar is required.
+                  </mat-error>-->
+                  </mat-form-field>
+                </div>
               </div>
-            </form> 
-          </div>
+              <h3>Dates</h3>
+
+              <div class="cart" fxLayout="column" fxLayoutGap="24px">
+                <div *ngFor="let dateElement of process.dateSet.data; let i=index">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="datepickerRef" placeholder="{{dateElement.labelName}}" name="{{dateElement.propertyName}}">
+                    <mat-datepicker-toggle matSuffix [for]="datepickerRef"></mat-datepicker-toggle>
+                  </mat-form-field>
+                  <mat-datepicker #datepickerRef></mat-datepicker>
+                </div>
+              </div>
+
+            </div>
+          </form>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -36,17 +52,17 @@
               <span>Schedules</span>
             </div>
           </ng-template>
-          <div class="shipping-address">
+          <div class="account-details">
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-              
+
             </div>
 
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-             
+
             </div>
 
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-              
+
             </div>
           </div>
         </mat-tab>
@@ -57,9 +73,9 @@
               <span>Instalments</span>
             </div>
           </ng-template>
-          <div class="payment-details" fxLayout="column">
+          <div class="account-details" fxLayout="column">
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-              
+
             </div>
 
           </div>
@@ -72,8 +88,8 @@
             </div>
           </ng-template>
           <div class="confirmation" fxLayout="column">
-              
-              
+
+
           </div>
         </mat-tab>
       </mat-tab-group>
@@ -86,4 +102,3 @@
     </div>
   </div>
 </div>
-

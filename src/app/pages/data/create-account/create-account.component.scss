@@ -8,19 +8,11 @@
   .card.alternative {
     padding: 0;
 
-    .shopping-cart {
+    .account-details {
 
       @include responsivePadding();
+      margin-bottom: 0px;
 
-    }
-
-    .shipping-address {
-
-      @include responsivePadding();
-    }
-
-    .payment-details {
-      @include responsivePadding();
     }
 
     .confirmation {
