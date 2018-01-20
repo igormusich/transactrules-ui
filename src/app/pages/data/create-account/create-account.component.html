@@ -4,7 +4,7 @@
 
     <vr-breadcrumbs [currentPage]="'Account Open'" [names]="['Data']" [header]="'primary'"></vr-breadcrumbs>
 
-    <mat-horizontal-stepper [linear]="isLinear">
+    <mat-horizontal-stepper [linear]="true">
       <mat-step [stepControl]="details_form">
         <form [formGroup]="details_form" novalidate>
           <ng-template matStepLabel>Enter account details</ng-template>
@@ -12,11 +12,12 @@
 
             <div class="cart" fxFlex="50%">
               <h3>Amounts</h3>
-              <div *ngFor="let element of process.amountSet.data; let i=index">
+              <div *ngFor="let amountElement of process.amountSet.data; let i=index">
                 <mat-form-field fxFlex>
-                  <input matInput type="number" placeholder="{{element.labelName}}" formControlName="{{element.propertyName}}" required class="input-right-align">
+                  <input matInput type="number" placeholder="{{amountElement.labelName}}" formControlName="{{amountElement.propertyName}}"
+                    required class="input-right-align">
                   <mat-error>
-                    {{element.labelName}} number is required.
+                    {{amountElement.labelName}} number is required.
                   </mat-error>
                   <span matPrefix>$&nbsp;</span>
                 </mat-form-field>
@@ -25,12 +26,12 @@
 
             <div class="cart" fxFlex="50%">
               <h3>Dates</h3>
-              <div *ngFor="let element of process.dateSet.data; let i=index">
+              <div *ngFor="let dateElement of process.dateSet.data; let i=index">
                 <mat-form-field fxFlex>
-                  <input matInput [matDatepicker]="datepickerRef" placeholder="{{element.labelName}}" formControlName="{{element.propertyName}}">
+                  <input matInput [matDatepicker]="datepickerRef" placeholder="{{dateElement.labelName}}" formControlName="{{dateElement.propertyName}}">
                   <mat-datepicker-toggle matSuffix [for]="datepickerRef"></mat-datepicker-toggle>
                   <mat-error>
-                    {{element.labelName}} number is required.
+                    {{dateElement.labelName}} number is required.
                   </mat-error>
                 </mat-form-field>
                 <mat-datepicker #datepickerRef></mat-datepicker>
@@ -51,6 +52,36 @@
                   <mat-error *ngIf="details_form.controls['businessDayCalculator'].hasError('required')">
                     Calendar is required.
                   </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="cart" fxFlex="50%">
+              <h3>Options</h3>
+              <div *ngFor="let optionElement of process.optionSet.data">
+                <mat-form-field fxFlex>
+                  <mat-select fxFlex formControlName="{{optionElement.propertyName}}" placeholder="{{optionElement.labelName}}">
+                    <mat-option *ngFor="let value of optionElement.value.values" [value]="value">
+                      {{value}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    {{optionElement.labelName}}} is required.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap="24px" fxLayoutGap.xs="0">
+            <div class="cart" fxFlex="50%">
+              <h3>Rates</h3>
+              <div *ngFor="let rateElement of process.rateSet.data; let i=index">
+                <mat-form-field fxFlex>
+                  <input matInput type="number" placeholder="{{rateElement.labelName}}" formControlName="{{rateElement.propertyName}}" required
+                    class="input-right-align">
+                  <mat-error>
+                    {{rateElement.labelName}} number is required.
+                  </mat-error>
+                  <span matPrefix>%&nbsp;</span>
                 </mat-form-field>
               </div>
             </div>
