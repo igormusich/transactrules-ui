@@ -16,6 +16,8 @@ import {
   MatMenuModule,
 } from '@angular/material';
 
+import {MatRadioModule} from '@angular/material/radio';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
@@ -47,6 +49,7 @@ import { SelectAccountTypeComponent } from './select-account-type/select-account
     MatIconModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatRadioModule,
     ReactiveFormsModule,
     AccountsRoutingModule
   ],

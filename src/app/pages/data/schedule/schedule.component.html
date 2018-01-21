@@ -1,0 +1,38 @@
+<div mat-dialog-content class="container" fxLayoutAlign="left" fxLayoutGap="24px" fxLayoutGap.xs="0">
+  <span>Edit Schedule</span>
+  <button matDialogClose mat-icon-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<form [formGroup]="form" novalidate>
+
+
+    <mat-form-field class="input-container" fxFlex>
+      <input matInput [matDatepicker]="datepickerRef" placeholder="Start Date" formControlName="startDate">
+      <mat-datepicker-toggle matSuffix [for]="datepickerRef"></mat-datepicker-toggle>
+      <mat-error>
+        Start Date is required
+      </mat-error>
+    </mat-form-field>
+    <mat-datepicker #datepickerRef></mat-datepicker>
+
+    <mat-form-field class="input-container" fxFlex >
+      <mat-select placeholder="End Type"  formControlName="endType">
+        <mat-option value="END_DATE" >By end date</mat-option>
+        <mat-option value="REPEATS">After repeats</mat-option>
+        <mat-option value="NO_END">No end</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+</form>
+<div mat-dialog-actions fxLayout="row">
+
+  <span fxFlex>
+    <!-- fill space -->
+  </span>
+
+  <button [disabled]="!form.valid" (click)="create()" class="save" fxFlexOffset="8px" mat-raised-button color="primary">
+    Save
+  </button>
+</div>

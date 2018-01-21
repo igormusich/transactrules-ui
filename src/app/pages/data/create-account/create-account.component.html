@@ -94,16 +94,14 @@
       <mat-step [stepControl]="schedule_form">
         <form [formGroup]="schedule_form">
           <ng-template matStepLabel>Enter schedules</ng-template>
-          <div class="account-details">
-            <div class="cart" fxLayout="column" fxLayoutGap="24px">
+          <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap="24px" fxLayoutGap.xs="0">
+            <div class="cart" fxFlex="100%">
+              <h3>Schedules</h3>
               <div *ngFor="let element of process.scheduleSet.data; let i=index">
-                <mat-form-field>
-                  <input matInput placeholder="{{element.labelName}}" formControlName="{{element.propertyName}}" required>
-                </mat-form-field>
+                <vr-select-schedule fxFlex placeholder="{{element.labelName}}" schedule="{{element.value}}"></vr-select-schedule>
               </div>
             </div>
           </div>
-
           <div>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
