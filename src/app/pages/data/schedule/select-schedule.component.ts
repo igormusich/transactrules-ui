@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { ScheduleComponent } from 'app/pages/data/schedule/schedule.component';
 import { Schedule } from 'app/models';
-import { dashCaseToCamelCase } from '@angular/compiler/src/util';
-import { shimContentAttribute } from '@angular/platform-browser/src/dom/dom_renderer';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ApiClientService } from 'app/api-client-service';
 
 @Component({
   selector: 'vr-select-schedule',
@@ -15,20 +14,30 @@ export class SelectScheduleComponent implements OnInit {
   @Input() schedule:Schedule;
   @Input() placeholder:String;
 
-  constructor(public composeDialog: MatDialog) { }
+  startDate: Date;
+  endType:String;
+  endDate:Date;
+
+  form: FormGroup;
+
+  constructor(private apiService: ApiClientService,
+    private fb: FormBuilder) { }
 
   ngOnInit() {
-  }
-
-  editSchedule(){
-    const dialogRef = this.composeDialog.open(ScheduleComponent,{
-      height: '600px',
-      width: '800px',
+    this.form = this.fb.group({
+      startDate: new FormControl (new Date(), Validators.required ), 
+      endType: new FormControl ('END_DATE', Validators.required ),
+      endDate: new FormControl (new Date(), Validators.required ), 
+      frequency: new FormControl ('MONTHLY', Validators.required ), 
+      interval: new FormControl (1, Validators.required ), 
+      numberOfRepeats: new FormControl (12, Validators.required )
     });
-
-
-    dialogRef.componentInstance.initFromSchedule(this.schedule);
-
   }
+
+  initFromSchedule(schedule: Schedule){
+    this.startDate = new Date(schedule.startDate);
+    this.endType = schedule.endType;
+  }
+
 
 }

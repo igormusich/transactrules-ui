@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ScheduleComponent } from './schedule.component';
+
 import { 
   MatInputModule, 
   MatPaginatorModule, 
@@ -52,8 +52,8 @@ import { SelectScheduleComponent } from './select-schedule.component';
     MatTabsModule,
     MatStepperModule
   ],
-  exports: [ScheduleComponent, SelectScheduleComponent ],
-  declarations: [ScheduleComponent, SelectScheduleComponent],
-  entryComponents: [ScheduleComponent, SelectScheduleComponent]
+  exports: [ SelectScheduleComponent ],
+  declarations: [SelectScheduleComponent],
+  entryComponents: [ SelectScheduleComponent]
 })
 export class ScheduleModule { }

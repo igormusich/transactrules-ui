@@ -4,7 +4,6 @@ import { MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material
 import { Process } from 'app/models/process.model';
 import { AccountOpenProcessService } from '../../../account-open-process.service'
 import { FormGroup, FormBuilder, FormControl,Validators } from '@angular/forms';
-import { ScheduleComponent } from 'app/pages/data/schedule/schedule.component';
 
 
 @Component({
@@ -93,25 +92,8 @@ export class CreateAccountComponent implements OnInit {
     return new FormGroup(group);
   }
 
-  editSchedule(scheduleName:String){
-    var schedule = this.process.schedules.find( element => element.propertyName === scheduleName );
-
-    const dialogRef = this.composeDialog.open(ScheduleComponent);
-
-    dialogRef.componentInstance.initFromSchedule(schedule.value);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        schedule.value = result.data;
-      }
-    });
-
-  }
-
   renderProcess(process: Process){
     this.process = process;
-    
-
   }
 
   previousPage() {

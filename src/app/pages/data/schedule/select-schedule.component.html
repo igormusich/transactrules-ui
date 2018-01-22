@@ -1,7 +1,43 @@
+<form [formGroup]="form" novalidate>
+    <mat-form-field class="input-container" style="width:40%;">
+        <mat-select placeholder="Frequency" formControlName="frequency">
+            <mat-option value="MONTHLY">Monthly</mat-option>
+            <mat-option value="DAILY">Daily</mat-option>
+        </mat-select>
+    </mat-form-field>
 
-  <mat-form-field fxFlex="300px" >
-    <input matInput placeholder="{{placeholder}}" value="(empty)" readonly="true" >
-    <button mat-button matSuffix mat-icon-button (click)="editSchedule()" >
-        <mat-icon>access_time</mat-icon>
-    </button>
-</mat-form-field>
+    <mat-form-field class="input-container" style="width:40%;">
+        <mat-select placeholder="End Type" formControlName="endType" [(ngModel)]="endType">
+            <mat-option value="END_DATE">By end date</mat-option>
+            <mat-option value="REPEATS">After repeats</mat-option>
+            <mat-option value="NO_END">No end</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="input-container" style="width:40%;">
+        <input matInput [matDatepicker]="datepickerRef1" placeholder="Start Date" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="datepickerRef1"></mat-datepicker-toggle>
+        <mat-error>
+            Start Date is required
+        </mat-error>
+    </mat-form-field>
+    <mat-datepicker #datepickerRef1></mat-datepicker>
+
+    <mat-form-field *ngIf="endType=='END_DATE'" class="input-container" style="width:40%;">
+        <input matInput [matDatepicker]="datepickerRef2" placeholder="End Date" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="datepickerRef2"></mat-datepicker-toggle>
+        <mat-error>
+            End Date is required
+        </mat-error>
+    </mat-form-field>
+    <mat-datepicker #datepickerRef2></mat-datepicker>
+
+    <mat-form-field *ngIf="endType=='REPEATS'" class="input-container" style="width:40%;">
+        <input matInput type="number" placeholder="Number of repeats" formControlName="numberOfRepeats">
+    </mat-form-field>
+
+    <mat-form-field class="input-container" style="width:40%;">
+        <input matInput type="number" placeholder="Interval" formControlName="interval">
+    </mat-form-field>
+
+</form>
