@@ -23,8 +23,13 @@ export class ScheduleComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       startDate: new FormControl (new Date(), Validators.required ), 
-      endType: new FormControl ('END_DATE', Validators.required )
+      endType: new FormControl ('END_DATE', Validators.required ),
+      endDate: new FormControl (new Date(), Validators.required ), 
+      frequency: new FormControl ('MONTHLY', Validators.required ), 
+      interval: new FormControl (1, Validators.required ), 
+      numberOfRepeats: new FormControl (12, Validators.required )
     });
+
   }
 
   initFromSchedule(schedule: Schedule){

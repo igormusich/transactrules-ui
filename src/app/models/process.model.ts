@@ -1,19 +1,18 @@
-import { AmountSet } from './amountset.model';
-import { CalendarSet } from './calendarset.model';
-import { DateSet } from './dateset.model';
-import { InstalmentSet } from './instalmentset.model';
-import { OptionSet } from './optionset.model';
-import { RateSet } from './rateset.model';
-import { ScheduleSet } from './scheduleset.model';
+import { AmountElement } from './amountelement.model';
+import { CalendarElement } from './calendarelement.model';
+import { DateElement } from './dateelement.model';
+import { InstalmentElement } from './instalmentelement.model';
+import { OptionElement } from './optionelement.model';
+import { RateElement } from './rateelement.model';
+import { ScheduleElement } from './scheduleelement.model';
 
 export interface Process {
-  processId: string;
-  status: string;
-  amountSet: AmountSet;
-  calendarSet: CalendarSet;
-  dateSet: DateSet;
-  instalmentSet: InstalmentSet;
-  optionSet: OptionSet;
-  rateSet: RateSet;
-  scheduleSet: ScheduleSet;
+  accountNumber: string;
+  amounts: AmountElement[];
+  calendar: CalendarElement;
+  dates: DateElement[];
+  instalments: InstalmentElement[];
+  options: OptionElement[];
+  rates: RateElement[];
+  schedules: ScheduleElement[];
 }

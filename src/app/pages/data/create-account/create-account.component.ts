@@ -44,28 +44,28 @@ export class CreateAccountComponent implements OnInit {
   toDetailsFormGroup(process: Process ): FormGroup {
     let group: any = {};
 
-    process.dateSet.data.forEach(element => {
+    process.dates.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
 
-    process.amountSet.data.forEach(element => {
+    process.amounts.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
 
-    process.rateSet.data.forEach(element => {
+    process.rates.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
 
-    process.optionSet.data.forEach(element => {
+    process.options.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
 
-    if(process.calendarSet != null && process.calendarSet.data != null){
-      group[process.calendarSet.data.propertyName] = new FormControl(process.calendarSet.data.value, Validators.required);
+    if(process.calendar != null){
+      group[process.calendar.propertyName] = new FormControl(process.calendar.value, Validators.required);
     }
 
     return new FormGroup(group);
@@ -74,7 +74,7 @@ export class CreateAccountComponent implements OnInit {
   toScheduleFormGroup(process: Process ): FormGroup {
     let group: any = {};
 
-    process.scheduleSet.data.forEach(element => {
+    process.schedules.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
@@ -85,7 +85,7 @@ export class CreateAccountComponent implements OnInit {
   toInstalmentFormGroup(process: Process ): FormGroup {
     let group: any = {};
 
-    process.instalmentSet.data.forEach(element => {
+    process.instalments.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
@@ -94,7 +94,7 @@ export class CreateAccountComponent implements OnInit {
   }
 
   editSchedule(scheduleName:String){
-    var schedule = this.process.scheduleSet.data.find( element => element.propertyName === scheduleName );
+    var schedule = this.process.schedules.find( element => element.propertyName === scheduleName );
 
     const dialogRef = this.composeDialog.open(ScheduleComponent);
 
