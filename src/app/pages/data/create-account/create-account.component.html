@@ -12,7 +12,7 @@
 
             <div class="cart" fxFlex="50%">
               <h3>Amounts</h3>
-              <div *ngFor="let amountElement of process.amounts; let i=index">
+              <div *ngFor="let amountElement of accountForm.amounts; let i=index">
                 <mat-form-field fxFlex>
                   <input matInput type="number" placeholder="{{amountElement.labelName}}" formControlName="{{amountElement.propertyName}}"
                     required class="input-right-align">
@@ -26,7 +26,7 @@
 
             <div class="cart" fxFlex="50%">
               <h3>Dates</h3>
-              <div *ngFor="let dateElement of process.dates; let i=index">
+              <div *ngFor="let dateElement of accountForm.dates; let i=index">
                 <mat-form-field fxFlex>
                   <input matInput [matDatepicker]="datepickerRef" placeholder="{{dateElement.labelName}}" formControlName="{{dateElement.propertyName}}">
                   <mat-datepicker-toggle matSuffix [for]="datepickerRef"></mat-datepicker-toggle>
@@ -44,8 +44,8 @@
               <h3>Calendar</h3>
               <div>
                 <mat-form-field fxFlex>
-                  <mat-select fxFlex formControlName="{{process.calendar.propertyName}}" placeholder="{{process.calendar.labelName}}">
-                    <mat-option *ngFor="let calendarName of process.calendar.calendarNames" [value]="calendarName">
+                  <mat-select fxFlex formControlName="{{accountForm.calendar.propertyName}}" placeholder="{{accountForm.calendar.labelName}}">
+                    <mat-option *ngFor="let calendarName of accountForm.calendar.calendarNames" [value]="calendarName">
                       {{calendarName}}
                     </mat-option>
                   </mat-select>
@@ -57,7 +57,7 @@
             </div>
             <div class="cart" fxFlex="50%">
               <h3>Options</h3>
-              <div *ngFor="let optionElement of process.options">
+              <div *ngFor="let optionElement of accountForm.options">
                 <mat-form-field fxFlex>
                   <mat-select fxFlex formControlName="{{optionElement.propertyName}}" placeholder="{{optionElement.labelName}}">
                     <mat-option *ngFor="let value of optionElement.value.values" [value]="value">
@@ -74,7 +74,7 @@
           <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap="24px" fxLayoutGap.xs="0">
             <div class="cart" fxFlex="50%">
               <h3>Rates</h3>
-              <div *ngFor="let rateElement of process.rates; let i=index">
+              <div *ngFor="let rateElement of accountForm.rates; let i=index">
                 <mat-form-field fxFlex>
                   <input matInput type="number" placeholder="{{rateElement.labelName}}" formControlName="{{rateElement.propertyName}}" required
                     class="input-right-align">
@@ -97,7 +97,7 @@
           <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap="24px" fxLayoutGap.xs="0">
             <div class="cart" fxFlex="100%">
               <h3>Schedules</h3>
-              <div *ngFor="let element of process.schedules; let i=index">
+              <div *ngFor="let element of accountForm.schedules; let i=index">
                 <vr-select-schedule fxFlex="400px" placeholder="{{element.labelName}}" schedule="{{element.value}}"></vr-select-schedule>
               </div>
             </div>
@@ -113,7 +113,7 @@
           <ng-template matStepLabel>Calculate Instalments </ng-template>
           <div class="account-details">
             <div class="cart" fxLayout="column" fxLayoutGap="24px">
-              <div *ngFor="let element of process.instalments; let i=index">
+              <div *ngFor="let element of accountForm.instalments; let i=index">
                 <mat-form-field>
                   <input matInput placeholder="{{element.labelName}}" formControlName="{{element.propertyName}}" required>
                 </mat-form-field>

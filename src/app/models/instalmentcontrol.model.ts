@@ -1,6 +1,6 @@
 import { InstalmentSet } from './instalmentset.model';
 
-export interface InstalmentElement {
+export interface InstalmentControl {
   isRequired: boolean;
   labelName: string;
   order: number;

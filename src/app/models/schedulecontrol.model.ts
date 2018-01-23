@@ -1,6 +1,6 @@
 import { Schedule } from './schedule.model';
 
-export interface ScheduleElement {
+export interface ScheduleControl {
   isRequired: boolean;
   labelName: string;
   order: number;

@@ -1,6 +1,6 @@
 import { OptionValue } from './optionvalue.model';
 
-export interface OptionElement {
+export interface OptionControl {
   isRequired: boolean;
   labelName: string;
   order: number;

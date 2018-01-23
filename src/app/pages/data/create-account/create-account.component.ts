@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
-import { Process } from 'app/models/process.model';
-import { AccountOpenProcessService } from '../../../account-open-process.service'
+import { AccountForm } from 'app/models';
+import { AccountFormService } from '../../../account-form.service'
 import { FormGroup, FormBuilder, FormControl,Validators } from '@angular/forms';
 
 
@@ -22,58 +22,58 @@ export class CreateAccountComponent implements OnInit {
   schedule_form: FormGroup;
   instalment_form: FormGroup;
 
-  process: Process;
+  accountForm: AccountForm;
 
   constructor(
-    public accountOpen: AccountOpenProcessService,
+    public accountOpen: AccountFormService,
     private fb: FormBuilder,
     public composeDialog: MatDialog) { 
 
     }
 
   ngOnInit() {
-    this.process = this.accountOpen.get();
-    this.details_form = this.toDetailsFormGroup(this.process);
-    this.schedule_form = this.toScheduleFormGroup(this.process);
-    this.instalment_form = this.toInstalmentFormGroup(this.process);
+    this.accountForm = this.accountOpen.get();
+    this.details_form = this.toDetailsFormGroup(this.accountForm);
+    this.schedule_form = this.toScheduleFormGroup(this.accountForm);
+    this.instalment_form = this.toInstalmentFormGroup(this.accountForm);
   }
 
 
 
-  toDetailsFormGroup(process: Process ): FormGroup {
+  toDetailsFormGroup(accountForm: AccountForm ): FormGroup {
     let group: any = {};
 
-    process.dates.forEach(element => {
+    accountForm.dates.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
 
-    process.amounts.forEach(element => {
+    accountForm.amounts.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
 
-    process.rates.forEach(element => {
+    accountForm.rates.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
 
-    process.options.forEach(element => {
+    accountForm.options.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
 
-    if(process.calendar != null){
-      group[process.calendar.propertyName] = new FormControl(process.calendar.value, Validators.required);
+    if(accountForm.calendar != null){
+      group[accountForm.calendar.propertyName] = new FormControl(accountForm.calendar.value, Validators.required);
     }
 
     return new FormGroup(group);
   }
 
-  toScheduleFormGroup(process: Process ): FormGroup {
+  toScheduleFormGroup(accountForm: AccountForm ): FormGroup {
     let group: any = {};
 
-    process.schedules.forEach(element => {
+    accountForm.schedules.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
@@ -81,10 +81,10 @@ export class CreateAccountComponent implements OnInit {
     return new FormGroup(group);
   }
 
-  toInstalmentFormGroup(process: Process ): FormGroup {
+  toInstalmentFormGroup(accountForm: AccountForm ): FormGroup {
     let group: any = {};
 
-    process.instalments.forEach(element => {
+    accountForm.instalments.forEach(element => {
       group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
                                                                : new FormControl(element.value || '');
     });
@@ -92,8 +92,8 @@ export class CreateAccountComponent implements OnInit {
     return new FormGroup(group);
   }
 
-  renderProcess(process: Process){
-    this.process = process;
+  renderForm(accountForm: AccountForm){
+    this.accountForm = accountForm;
   }
 
   previousPage() {

@@ -22,8 +22,7 @@ export class SelectAccountTypeComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.fb.group({
-      accountTypeName: new FormControl ('', Validators.required ), 
-      accountNumber: new FormControl ('', Validators.required )
+      accountTypeName: new FormControl ('', Validators.required )
     });
 
     this.apiService.findAllAccountTypes().subscribe(accountTypes=> {
@@ -39,10 +38,10 @@ export class SelectAccountTypeComponent implements OnInit {
       return;
     }
 
-    this.apiService.createAccountOpen(request).subscribe(
+    this.apiService.getAccountForm(request.accountTypeName).subscribe(
       response=> {
         this.dialogRef.close( {
-          'message':'Account Open process created',
+          'message':'Account Form retrieved',
           'object': response.body
         } );
       },

@@ -19,7 +19,7 @@ import { ApiClientService } from 'app/api-client-service';
 import { Account } from 'app/models/account.model';
 
 import { SelectAccountTypeComponent } from './select-account-type/select-account-type.component';
-import { AccountOpenProcessService } from '../../../account-open-process.service';
+import { AccountFormService } from '../../../account-form.service';
 import { Router } from '@angular/router';
 
 
@@ -42,7 +42,7 @@ export class AccountsComponent implements OnInit {
 
   constructor(private apiService: ApiClientService, 
     public composeDialog: MatDialog,
-    public accountOpen: AccountOpenProcessService,
+    public accountOpen: AccountFormService,
     public router: Router ) {
 
   }

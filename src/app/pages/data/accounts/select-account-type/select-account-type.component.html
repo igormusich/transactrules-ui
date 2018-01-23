@@ -18,12 +18,6 @@
           Account Type is required.
         </mat-error> 
       </mat-form-field>
-      <mat-form-field class="input-container" fxFlex>
-        <input formControlName="accountNumber"  matInput placeholder="Account number" required>
-        <mat-error *ngIf="form.controls['accountNumber'].hasError('required')">
-          Account number is required.
-        </mat-error>
-      </mat-form-field>
     </div>
   </div>
 </form>

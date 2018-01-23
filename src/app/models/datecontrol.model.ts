@@ -1,8 +1,8 @@
 
-export interface AmountElement {
+export interface DateControl {
   isRequired: boolean;
   labelName: string;
   order: number;
   propertyName: string;
-  value: number;
+  value: string;
 }

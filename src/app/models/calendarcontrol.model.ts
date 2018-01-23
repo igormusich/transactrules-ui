@@ -1,5 +1,5 @@
 
-export interface CalendarElement {
+export interface CalendarControl {
   calendarNames: string[];
   isRequired: boolean;
   labelName: string;

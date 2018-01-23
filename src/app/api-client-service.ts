@@ -27,8 +27,7 @@ import {
   Transaction,
   TransactionRuleType,
   TransactionType,
-  AccountOpenCreateRequest,
-  Process
+  AccountForm
 } from './models';
 import { CalendarComponent } from 'app/pages/data/calendar/calendar.component';
 
@@ -102,11 +101,11 @@ export class ApiClientService {
     return this.http.get<Calendar[]>(this.domain +  uri);
   }
 
-  public createAccountOpen(request: AccountOpenCreateRequest): Observable<HttpResponse<Process>> {
-    let uri = `/accountOpen`;
+  public getAccountForm(accountTypeName: string): Observable<HttpResponse<AccountForm>> {
+    let uri = `/accountOpen/${accountTypeName}`;
     let headers = new HttpHeaders();
     let params = new HttpParams();
-    return this.sendRequest<Process>('post', uri, headers, params, JSON.stringify(request));
+    return this.sendRequest<AccountForm>('get', uri, headers, params, null);
   }
 
 

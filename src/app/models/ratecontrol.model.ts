@@ -1,5 +1,5 @@
 
-export interface RateElement {
+export interface RateControl {
   isRequired: boolean;
   labelName: string;
   order: number;
