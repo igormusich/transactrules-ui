@@ -102,7 +102,7 @@ export class ApiClientService {
   }
 
   public getAccountForm(accountTypeName: string): Observable<HttpResponse<AccountForm>> {
-    let uri = `/accountOpen/${accountTypeName}`;
+    let uri = `/accountForm/${accountTypeName}`;
     let headers = new HttpHeaders();
     let params = new HttpParams();
     return this.sendRequest<AccountForm>('get', uri, headers, params, null);
