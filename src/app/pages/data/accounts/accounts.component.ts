@@ -14,14 +14,13 @@ import * as moment from 'moment';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
-
 import { ApiClientService } from 'app/api-client-service';
-import { Account } from 'app/models/account.model';
+import { AccountType,Account } from 'app/models';
 
 import { SelectAccountTypeComponent } from './select-account-type/select-account-type.component';
-import { AccountFormService } from '../../../account-form.service';
+import { AccountCreateService } from '../../../account-create.service';
 import { Router } from '@angular/router';
-
+import { resetFakeAsyncZone } from '@angular/core/testing';
 
 @Component({
   selector: 'vr-accounts',
@@ -42,7 +41,7 @@ export class AccountsComponent implements OnInit {
 
   constructor(private apiService: ApiClientService, 
     public composeDialog: MatDialog,
-    public accountOpen: AccountFormService,
+    public accountOpen: AccountCreateService,
     public router: Router ) {
 
   }
@@ -59,7 +58,13 @@ export class AccountsComponent implements OnInit {
     const dialogRef = this.composeDialog.open(SelectAccountTypeComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.accountOpen.set(result.object);
+        var account:Account = result.account;
+        var calendarName:string = result.calendarName;
+        
+        account.calendarNames = [calendarName];
+
+        this.accountOpen.setAccountType(result.accountType);
+        this.accountOpen.setAccount(account);
         this.router.navigate(['/data/create-account']);      
       }
     }); 

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
-import { AccountForm } from 'app/models';
-import { AccountFormService } from '../../../account-form.service'
-import { FormGroup, FormBuilder, FormControl,Validators } from '@angular/forms';
+import { AccountType, Account } from 'app/models';
+import { AccountCreateService } from '../../../account-create.service'
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ApiClientService } from 'app/api-client-service';
 
 
 @Component({
@@ -22,85 +23,81 @@ export class CreateAccountComponent implements OnInit {
   schedule_form: FormGroup;
   instalment_form: FormGroup;
 
-  accountForm: AccountForm;
+  accountType: AccountType;
+  account: Account;
+  calendarName: String;
 
   constructor(
-    public accountOpen: AccountFormService,
+    public accountTypeService: AccountCreateService,
     private fb: FormBuilder,
-    public composeDialog: MatDialog) { 
+    public composeDialog: MatDialog,
+    public apiClient: ApiClientService) {
 
-    }
+  }
 
   ngOnInit() {
-    this.accountForm = this.accountOpen.get();
-    this.details_form = this.toDetailsFormGroup(this.accountForm);
-    this.schedule_form = this.toScheduleFormGroup(this.accountForm);
-    this.instalment_form = this.toInstalmentFormGroup(this.accountForm);
+    this.accountType = this.accountTypeService.getAccountType();
+    this.account = this.accountTypeService.getAccount();
+    this.calendarName = this.accountTypeService.getCalendarName();
+    this.details_form = this.toDetailsFormGroup(this.accountType);
+    this.schedule_form = this.toScheduleFormGroup(this.accountType);
+    this.instalment_form = this.toInstalmentFormGroup(this.accountType);
   }
 
-
-
-  toDetailsFormGroup(accountForm: AccountForm ): FormGroup {
+  toDetailsFormGroup(accountType: AccountType): FormGroup {
     let group: any = {};
 
-    accountForm.dates.forEach(element => {
-      group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
-                                                               : new FormControl(element.value || '');
+    accountType.dateTypes.forEach(element => {
+      group[element.propertyName] =  new FormControl('', Validators.required);
     });
 
-    accountForm.amounts.forEach(element => {
-      group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
-                                                               : new FormControl(element.value || '');
+    accountType.amountTypes.forEach(element => {
+      group[element.propertyName] = new FormControl(0, Validators.required);
     });
 
-    accountForm.rates.forEach(element => {
-      group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
-                                                               : new FormControl(element.value || '');
+    accountType.rateTypes.forEach(element => {
+      group[element.propertyName] = new FormControl(0, Validators.required);
     });
 
-    accountForm.options.forEach(element => {
-      group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
-                                                               : new FormControl(element.value || '');
-    });
-
-    if(accountForm.calendar != null){
-      group[accountForm.calendar.propertyName] = new FormControl(accountForm.calendar.value, Validators.required);
-    }
-
-    return new FormGroup(group);
-  }
-
-  toScheduleFormGroup(accountForm: AccountForm ): FormGroup {
-    let group: any = {};
-
-    accountForm.schedules.forEach(element => {
-      group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
-                                                               : new FormControl(element.value || '');
+    accountType.optionTypes.forEach(element => {
+      group[element.propertyName] =new FormControl('', Validators.required);
     });
 
     return new FormGroup(group);
   }
 
-  toInstalmentFormGroup(accountForm: AccountForm ): FormGroup {
+  toScheduleFormGroup(accountType: AccountType): FormGroup {
     let group: any = {};
 
-    accountForm.instalments.forEach(element => {
-      group[element.propertyName] = element.isRequired ? new FormControl(element.value || '', Validators.required)
-                                                               : new FormControl(element.value || '');
+    accountType.scheduleTypes.forEach(element => {
+      group[element.propertyName] = new FormControl('', Validators.required);
     });
 
     return new FormGroup(group);
   }
 
-  renderForm(accountForm: AccountForm){
-    this.accountForm = accountForm;
+  toInstalmentFormGroup(accountType: AccountType): FormGroup {
+    let group: any = {};
+
+    accountType.instalmentTypes.forEach(element => {
+      group[element.propertyName] = new FormControl('', Validators.required);
+    });
+
+    return new FormGroup(group);
   }
 
-  previousPage() {
-    this.selectedIndex -= 1;
+  renderForm(accountType: AccountType) {
+    this.accountType = accountType;
   }
 
-  nextPage() {
-    this.selectedIndex += 1;
+  onDetailsNextStep(event: any) {
+    const request = this.details_form.value;
+    // this.apiClient.getCalculatedForm(this.accountTypeService.get().className, request)
+    //   .subscribe(response => {
+    //     this.accountType = response.body;
+    //   },
+    //   errorResponse => {
+    //     console.log(errorResponse);
+    //   });
   }
 }

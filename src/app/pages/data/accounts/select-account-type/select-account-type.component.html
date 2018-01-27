@@ -18,6 +18,16 @@
           Account Type is required.
         </mat-error> 
       </mat-form-field>
+      <mat-form-field fxFlex>
+        <mat-select fxFlex formControlName="calendarName" placeholder="Calendar">
+          <mat-option *ngFor="let calendar of calendars" [value]="calendar.name">
+            {{calendar.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['calendarName'].hasError('required')">
+          Calendar is required.
+        </mat-error>
+      </mat-form-field>
     </div>
   </div>
 </form>

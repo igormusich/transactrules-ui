@@ -26,8 +26,7 @@ import {
   ScheduledTransaction,
   Transaction,
   TransactionRuleType,
-  TransactionType,
-  AccountForm
+  TransactionType
 } from './models';
 import { CalendarComponent } from 'app/pages/data/calendar/calendar.component';
 
@@ -55,6 +54,18 @@ export class ApiClientService {
     let params = new HttpParams();
     //return this.sendRequest<AccountType[]>('get', uri, headers, params, null);
     return this.http.get<AccountType[]>(this.domain +  uri);
+  }
+
+    /**
+  * Method findByNameUsingGET
+  * @param className className
+  * @return Full HTTP response as Observable
+  */
+  public getAccountType(className: string): Observable<HttpResponse<AccountType>> {
+    let uri = `/accountTypes/${className}`;
+    let headers = new HttpHeaders();
+    let params = new HttpParams();
+    return this.sendRequest<AccountType>('get', uri, headers, params, null);
   }
 
   /**
@@ -101,24 +112,52 @@ export class ApiClientService {
     return this.http.get<Calendar[]>(this.domain +  uri);
   }
 
-  public getAccountForm(accountTypeName: string): Observable<HttpResponse<AccountForm>> {
-    let uri = `/accountForm/${accountTypeName}`;
-    let headers = new HttpHeaders();
-    let params = new HttpParams();
-    return this.sendRequest<AccountForm>('get', uri, headers, params, null);
-  }
-
-
-  /**
-  * Method createAccount
+/**
+  * Method saveUsingPOST
   * @param account account
   * @return Full HTTP response as Observable
   */
-  public createAccount(account: Account): Observable<HttpResponse<any>> {
+  public saveUsingPOST(account: Account): Observable<HttpResponse<any>> {
     let uri = `/accounts`;
     let headers = new HttpHeaders();
     let params = new HttpParams();
     return this.sendRequest<any>('post', uri, headers, params, JSON.stringify(account));
+  }
+
+  /**
+  * Method getCalculatedPropertiesUsingPOST
+  * @param prototype prototype
+  * @return Full HTTP response as Observable
+  */
+  public getCalculatedPropertiesUsingPOST(prototype: Account): Observable<HttpResponse<Account>> {
+    let uri = `/accounts/calculateProperties`;
+    let headers = new HttpHeaders();
+    let params = new HttpParams();
+    return this.sendRequest<Account>('post', uri, headers, params, JSON.stringify(prototype));
+  }
+
+  /**
+  * Method getSchedulesUsingPOST
+  * @param prototype prototype
+  * @return Full HTTP response as Observable
+  */
+  public solveInstalmentsUsingPOST(prototype: Account): Observable<HttpResponse<Account>> {
+    let uri = `/accounts/solveInstalments`;
+    let headers = new HttpHeaders();
+    let params = new HttpParams();
+    return this.sendRequest<Account>('post', uri, headers, params, JSON.stringify(prototype));
+  }
+
+  /**
+  * Method createUsingGET
+  * @param accountTypeName accountTypeName
+  * @return Full HTTP response as Observable
+  */
+  public createAccount(accountTypeName: string): Observable<HttpResponse<Account>> {
+    let uri = `/accounts/${accountTypeName}/new`;
+    let headers = new HttpHeaders();
+    let params = new HttpParams();
+    return this.sendRequest<Account>('get', uri, headers, params, null);
   }
 
   /**

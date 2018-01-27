@@ -4,6 +4,10 @@ import { ApiClientService } from 'app/api-client-service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { FieldError } from 'app/errorModel/fielderror.model';
 import { AccountType } from 'app/models/accounttype.model';
+import { CalendarComponent } from 'app/pages/data/calendar/calendar.component';
+import { Calendar } from 'app/models/calendar.model';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+//import { read } from 'fs';
 
 @Component({
   selector: 'vr-select-account-type',
@@ -14,6 +18,7 @@ export class SelectAccountTypeComponent implements OnInit {
 
   form: FormGroup;
   accountTypes: AccountType[];
+  calendars: Calendar[];
 
   constructor(private dialogRef: MatDialogRef<SelectAccountTypeComponent>,
     private apiService: ApiClientService,
@@ -22,11 +27,16 @@ export class SelectAccountTypeComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.fb.group({
-      accountTypeName: new FormControl ('', Validators.required )
+      accountTypeName: new FormControl ('', Validators.required ),
+      calendarName: new FormControl ('', Validators.required)
     });
 
     this.apiService.findAllAccountTypes().subscribe(accountTypes=> {
       this.accountTypes = accountTypes;
+    });
+
+    this.apiService.findAllCalendars().subscribe(calendars =>{
+      this.calendars = calendars;
     });
   }
 
@@ -38,27 +48,20 @@ export class SelectAccountTypeComponent implements OnInit {
       return;
     }
 
-    this.apiService.getAccountForm(request.accountTypeName).subscribe(
-      response=> {
-        this.dialogRef.close( {
-          'message':'Account Form retrieved',
-          'object': response.body
-        } );
-      },
-      errorResponse => {
-        if(errorResponse.status == 422){
-          
-          for (let index in errorResponse.error.fieldErrors) {
-            var fieldError: FieldError = errorResponse.error.fieldErrors[index];
-            
-            const control = this.form.get(fieldError.field);
-            var error = new Map();
-            control.setErrors({ [fieldError.code] : true});
-            control.markAsDirty();
-          }
-  
-        }
-      });
+    let accountType = this.apiService.getAccountType(request.accountTypeName);
+    let account = this.apiService.createAccount(request.accountTypeName);
+
+    forkJoin([accountType, account]).subscribe(results => {
+      // results[0] is accountType
+      // results[1] is account
+      this.dialogRef.close( {
+        'message':'new Account created',
+        'accountType': results[0].body,
+        'account': results[1].body,
+        'calendarName': request.calendarName
+      } );
+    });
+
   }
 
 }

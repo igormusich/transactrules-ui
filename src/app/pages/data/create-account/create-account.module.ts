@@ -35,6 +35,7 @@ import { CreateAccountRoutingModule} from 'app/pages/data/create-account/create-
 
 import { CreateAccountComponent } from './create-account.component';
 import { ScheduleModule } from 'app/pages/data/schedule/schedule.module';
+import { OptionValuesPipe } from './option-values.pipe';
 //import { ScheduleComponent } from 'app/pages/data/schedule/schedule.component';
 
 @NgModule({
@@ -67,7 +68,7 @@ import { ScheduleModule } from 'app/pages/data/schedule/schedule.module';
     CreateAccountRoutingModule,
     ScheduleModule
   ],
-  declarations: [CreateAccountComponent],
+  declarations: [CreateAccountComponent, OptionValuesPipe],
   exports: [CreateAccountComponent],
   entryComponents: []
 })
