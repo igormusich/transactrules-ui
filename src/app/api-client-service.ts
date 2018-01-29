@@ -129,7 +129,7 @@ export class ApiClientService {
   * @param prototype prototype
   * @return Full HTTP response as Observable
   */
-  public getCalculatedPropertiesUsingPOST(prototype: Account): Observable<HttpResponse<Account>> {
+  public getCalculatedProperties(prototype: Account): Observable<HttpResponse<Account>> {
     let uri = `/accounts/calculateProperties`;
     let headers = new HttpHeaders();
     let params = new HttpParams();

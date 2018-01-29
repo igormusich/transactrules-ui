@@ -33,9 +33,11 @@ import { PageHeaderModule } from '../../../core/page-header/page-header.module';
 import { ListModule } from '../../../core/list/list.module';
 import { CreateAccountRoutingModule} from 'app/pages/data/create-account/create-account-routing.module'
 
-import { CreateAccountComponent } from './create-account.component';
 import { ScheduleModule } from 'app/pages/data/schedule/schedule.module';
 import { OptionValuesPipe } from './option-values.pipe';
+import { EditAccountDetailsComponent } from './edit-account-details/edit-account-details.component';
+import { EditAccountSchedulesComponent } from './edit-account-schedules/edit-account-schedules.component';
+import { EditAccountInstalmentsComponent } from './edit-account-instalments/edit-account-instalments.component';
 //import { ScheduleComponent } from 'app/pages/data/schedule/schedule.component';
 
 @NgModule({
@@ -68,8 +70,8 @@ import { OptionValuesPipe } from './option-values.pipe';
     CreateAccountRoutingModule,
     ScheduleModule
   ],
-  declarations: [CreateAccountComponent, OptionValuesPipe],
-  exports: [CreateAccountComponent],
+  declarations: [ OptionValuesPipe, EditAccountDetailsComponent, EditAccountSchedulesComponent, EditAccountInstalmentsComponent],
+  exports: [],
   entryComponents: []
 })
 export class CreateAccountModule { }

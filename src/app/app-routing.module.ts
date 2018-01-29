@@ -17,7 +17,6 @@ const routes: Routes = [
       {
         path: 'data/create-account',
         loadChildren: 'app/pages/data/create-account/create-account.module#CreateAccountModule',
-        pathMatch: 'full'
       },
       {
         path: 'data/calendars',

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="account" fxLayout="row">
+    <div class="card alternative" fxLayout="column" fxLayoutGap="16px" fxLayoutGap.gt-md="24px" fxFlex>
+      <form [formGroup]="instalment_form">
+        <div class="container" fxLayout fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap="24px" fxLayoutGap.md="10">
+          <div fxFlex="50%"  >
+            <h3>Instalments</h3>
+            <div *ngFor="let instalmentType of accountType.instalmentTypes; let i=index">
+              <mat-form-field>
+                <input matInput placeholder="{{instalmentType.labelName}}" formControlName="{{instalmentType.propertyName}}" required>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button mat-button (click)="onPreviousStep($event)" >Back</button>
+          <button mat-button (click)="onNextStep($event)" >Next</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

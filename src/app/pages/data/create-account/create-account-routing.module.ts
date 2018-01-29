@@ -1,12 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CreateAccountComponent } from 'app/pages/data/create-account/create-account.component';
+import { EditAccountDetailsComponent } from 'app/pages/data/create-account/edit-account-details/edit-account-details.component';
+import { EditAccountSchedulesComponent } from 'app/pages/data/create-account/edit-account-schedules/edit-account-schedules.component';
+import { EditAccountInstalmentsComponent } from 'app/pages/data/create-account/edit-account-instalments/edit-account-instalments.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: CreateAccountComponent
-  }
+    component: EditAccountDetailsComponent
+  },
+  {
+    path: 'schedules',
+    component: EditAccountSchedulesComponent
+  },
+  {
+    path: 'instalments',
+    component: EditAccountInstalmentsComponent
+  },
 ];
 
 @NgModule({
