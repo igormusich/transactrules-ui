@@ -1,17 +1,18 @@
 <div class="container">
   <div class="account" fxLayout="row">
     <div class="card alternative" fxLayout="column" fxLayoutGap="16px" fxLayoutGap.gt-md="24px" fxFlex>
-      <div class="container" fxLayout fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap="24px" fxLayoutGap.xs="10">
-
-        <div *ngFor="let scheduleControl of schedules">
-          <vr-select-schedule placeholder="{{scheduleControl.scheduleType.labelName}}" formControlName="{{scheduleControl.scheduleType.propertyName}}}"
-            [schedule]="scheduleControl.schedule"></vr-select-schedule>
+      <form [formGroup]="schedules_form" novalidate>
+        <div class="container" fxLayout fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="left" fxLayoutGap="24px" fxLayoutGap.xs="10">
+          <div *ngFor="let scheduleControl of schedules">
+            <vr-select-schedule placeholder="{{scheduleControl.scheduleType.labelName}}" formControlName="{{scheduleControl.scheduleType.propertyName}}"></vr-select-schedule>
+          </div>
         </div>
-      </div>
-      <div  >
-        <button mat-button (click)="onPreviousStep($event)" >Back</button>
-        <button mat-button (click)="onNextStep($event)" >Next</button>
+      </form>
+      <div>
+        <button mat-button (click)="onPreviousStep($event)">Back</button>
+        <button mat-button (click)="onNextStep($event)">Next</button>
       </div>
     </div>
+
   </div>
 </div>

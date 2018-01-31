@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/toArray';
+import { toDate }  from 'app/core/utils/format-date';
 
 @Component({
   selector: 'vr-edit-account-details',
@@ -149,14 +150,16 @@ export class EditAccountDetailsComponent implements OnInit {
     this.account.dates[key] = dateValue;
   }
 
-  getDate(key:string):string {
-    var value:string = '';
+  getDate(key:string):Date {
+    var dateString:string = '';
 
     try {
-      value = this.account.dates[key].date;
+      dateString = this.account.dates[key].date;
+      
     }
     catch(e){}
 
+    var value =toDate(dateString);
     return value;
   }
 
