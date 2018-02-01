@@ -62,6 +62,7 @@ export class EditAccountDetailsComponent implements OnInit {
   onDetailsNextStep(event: any) {
 
     if(this.details_form.invalid){
+      this.details_form.updateValueAndValidity();
       return;
     }
 
@@ -165,7 +166,7 @@ export class EditAccountDetailsComponent implements OnInit {
 
   setRate(key:string,value:number){
     var rateValue:RateValue = new RateValue();
-    rateValue.value = value;
+    rateValue.value = value/100;
 
     this.account.rates[key] = rateValue;
   }
@@ -174,7 +175,7 @@ export class EditAccountDetailsComponent implements OnInit {
     var value:number = 0;
 
     try {
-      value = this.account.rates[key].value;
+      value = this.account.rates[key].value*100;
     }
     catch(e){}
 

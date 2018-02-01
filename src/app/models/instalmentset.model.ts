@@ -8,7 +8,7 @@ export class InstalmentSet {
     
     keys.forEach((key:string)=>{
       var instalmentvalue: InstalmentValue = new InstalmentValue();
-      instalmentvalue.from(value.instalments[key]);
+      instalmentvalue.from(value.instalments[key], key);
       this.instalments[key] = instalmentvalue;
     });
 

@@ -141,7 +141,7 @@ export class ApiClientService {
   * @param prototype prototype
   * @return Full HTTP response as Observable
   */
-  public solveInstalmentsUsingPOST(prototype: Account): Observable<HttpResponse<Account>> {
+  public getSolvedInstalments(prototype: Account): Observable<HttpResponse<Account>> {
     let uri = `/accounts/solveInstalments`;
     let headers = new HttpHeaders();
     let params = new HttpParams();

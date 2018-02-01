@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ApiClientService } from 'app/api-client-service';
 import { Router } from '@angular/router';
 import { InstalmentSet, Account, AccountType } from 'app/models';
+import { InstalmentValue } from 'app/models/instalmentvalue.model';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'vr-edit-account-instalments',
@@ -13,9 +15,10 @@ import { InstalmentSet, Account, AccountType } from 'app/models';
 })
 export class EditAccountInstalmentsComponent implements OnInit {
 
-  instalment_form: FormGroup;
   accountType: AccountType;
   account: Account;
+  dataSource: MatTableDataSource<InstalmentValue> | null;
+  displayedColumns = ['date','amount','hasFixedValue','actions'];
 
   constructor(public accountCreateService: AccountCreateService,
     private fb: FormBuilder,
@@ -25,17 +28,39 @@ export class EditAccountInstalmentsComponent implements OnInit {
   ngOnInit() {
     this.accountType = this.accountCreateService.getAccountType();
     this.account = this.accountCreateService.getAccount();
-    this.instalment_form = this.toInstalmentFormGroup(this.accountType);
+    this.dataSource = new MatTableDataSource<InstalmentValue>(this.getInstalmentSetValues(this.account));
   }
 
-  toInstalmentFormGroup(accountType: AccountType): FormGroup {
-    let group: any = {};
+  getInstalmentSetValues(account:Account):InstalmentValue[] {
+    var keys = Object.keys(account.instalmentSets);
 
-    accountType.instalmentTypes.forEach(element => {
-      group[element.propertyName] = new FormControl('', Validators.required);
+    var set:InstalmentSet  = account.instalmentSets[keys[0]].instalments;
+
+    var dates: any[] = Object.keys(set);
+
+    var instalments = new Array<InstalmentValue>();
+
+    dates.forEach((date: string) => {
+      var value:InstalmentValue = set[date];
+      var instalmentValue = new InstalmentValue();
+      instalmentValue.from(value, date);
+      
+      instalments.push(instalmentValue);
     });
 
-    return new FormGroup(group);
+    return instalments;
+  }
+
+  create(){
+    //show dialog to create new instalment value
+  }
+
+  update(instalmentValue:InstalmentValue ){
+    
+  }
+
+  delete(instalmentValue:InstalmentValue ){
+    
   }
 
   onPreviousStep(){
@@ -43,7 +68,7 @@ export class EditAccountInstalmentsComponent implements OnInit {
   }
 
   onNextStep(){
-    //this.router.navigate(['/data/create-account/instalments']);  
+    //save and close
   }
 
 

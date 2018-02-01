@@ -1,8 +1,6 @@
 <div fxFlex="25%">
-    <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
-        <div>
-            <div class="title">{{placeholder}}</div>
-        </div>
+    <div>
+        <h3>{{placeholder}}</h3>
     </div>
 
     <div class="content" fxLayout="column">
@@ -16,7 +14,7 @@
             </mat-form-field>
 
             <mat-form-field class="input-container" style="width:40%;">
-                <mat-select (change)="parseForm($event)"  placeholder="End Type" formControlName="endType" (ngModel)="schedule.endType" >
+                <mat-select (change)="parseForm($event)" placeholder="End Type" formControlName="endType" (ngModel)="schedule.endType">
                     <mat-option value="END_DATE">By end date</mat-option>
                     <mat-option value="REPEATS">After repeats</mat-option>
                     <mat-option value="NO_END">No end</mat-option>
@@ -31,7 +29,7 @@
                 </mat-error>
                 <mat-datepicker (selectedChanged)="parseStartDate($event)" #datepickerRef1></mat-datepicker>
             </mat-form-field>
-            
+
             <mat-form-field *ngIf="schedule.endType=='END_DATE'" class="input-container" style="width:40%;">
                 <input (change)="parseForm($event)" matInput [matDatepicker]="datepickerRef2" placeholder="End Date" formControlName="endDate">
                 <mat-datepicker-toggle matSuffix [for]="datepickerRef2"></mat-datepicker-toggle>
@@ -40,7 +38,7 @@
                 </mat-error>
                 <mat-datepicker (selectedChanged)="parseEndDate($event)" #datepickerRef2></mat-datepicker>
             </mat-form-field>
-            
+
             <mat-form-field *ngIf="schedule.endType=='REPEATS'" class="input-container" style="width:40%;">
                 <input (change)="parseForm($event)" matInput type="number" placeholder="Number of repeats" formControlName="numberOfRepeats">
             </mat-form-field>
@@ -53,11 +51,11 @@
                 <input (change)="parseForm($event)" matInput placeholder="Business Day Adjustment" formControlName="businessDayCalculation">
             </mat-form-field>
 
-            <mat-form-field *ngIf="false"  class="input-container" style="width:40%;">
+            <mat-form-field *ngIf="false" class="input-container" style="width:40%;">
                 <input (change)="parseForm($event)" matInput placeholder="Include Dates" formControlName="includeDates">
             </mat-form-field>
 
-            <mat-form-field *ngIf="false"  class="input-container" style="width:40%;">
+            <mat-form-field *ngIf="false" class="input-container" style="width:40%;">
                 <input (change)="parseForm($event)" matInput placeholder="Exclude dates" formControlName="excludeDates">
             </mat-form-field>
         </form>

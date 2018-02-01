@@ -67,7 +67,12 @@ export class EditAccountSchedulesComponent implements OnInit {
 
   onNextStep(){
     this.mapFormToAccount();
-    this.router.navigate(['/data/create-account/instalments']);  
+
+    this.apiClient.getSolvedInstalments(this.account).subscribe( result => {
+      this.account= result.body;
+      this.accountCreateService.setAccount(this.account);
+      this.router.navigate(['/data/create-account/instalments']);  
+    });
   }
 
   mapFormToAccount() {
