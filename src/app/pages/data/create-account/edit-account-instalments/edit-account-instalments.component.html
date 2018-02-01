@@ -3,8 +3,8 @@
     <button type="button" mat-raised-button color="primary" (click)="onPreviousStep($event)">
       <mat-icon>navigate_before</mat-icon> Back
     </button>
-    <button type="button" mat-raised-button color="primary" (click)="onNextStep($event)">
-      Next
+    <button type="button" mat-raised-button color="primary" (click)="onSave($event)">
+      Save
       <mat-icon>navigate_next</mat-icon>
     </button>
   </div>
@@ -34,7 +34,9 @@
 
             <ng-container cdkColumnDef="hasFixedValue">
               <mat-header-cell *cdkHeaderCellDef> Fixed </mat-header-cell>
-              <mat-cell *cdkCellDef="let row"> {{row.hasFixedValue}} </mat-cell>
+              <mat-cell *cdkCellDef="let row"> 
+                  <mat-checkbox color="primary" value="{{row.hasFixedValue}}" disabled="true" (click)="$event.stopPropagation()"></mat-checkbox>  
+              </mat-cell>           
             </ng-container>
 
             <!-- actions Column -->

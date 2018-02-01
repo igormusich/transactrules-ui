@@ -117,7 +117,7 @@ export class ApiClientService {
   * @param account account
   * @return Full HTTP response as Observable
   */
-  public saveUsingPOST(account: Account): Observable<HttpResponse<any>> {
+  public saveAccount(account: Account): Observable<HttpResponse<any>> {
     let uri = `/accounts`;
     let headers = new HttpHeaders();
     let params = new HttpParams();
