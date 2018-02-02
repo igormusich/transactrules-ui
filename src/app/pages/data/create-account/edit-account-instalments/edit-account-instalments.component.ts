@@ -6,7 +6,8 @@ import { ApiClientService } from 'app/api-client-service';
 import { Router } from '@angular/router';
 import { InstalmentSet, Account, AccountType } from 'app/models';
 import { InstalmentValue } from 'app/models/instalmentvalue.model';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog } from '@angular/material';
+import { EditInstalmentComponent } from 'app/pages/data/instalment/edit-instalment/edit-instalment.component';
 
 @Component({
   selector: 'vr-edit-account-instalments',
@@ -23,7 +24,8 @@ export class EditAccountInstalmentsComponent implements OnInit {
   constructor(public accountCreateService: AccountCreateService,
     private fb: FormBuilder,
     public apiClient: ApiClientService,
-    public router: Router) { }
+    public router: Router,
+    public composeDialog: MatDialog) { }
 
   ngOnInit() {
     this.accountType = this.accountCreateService.getAccountType();
@@ -56,6 +58,17 @@ export class EditAccountInstalmentsComponent implements OnInit {
   }
 
   update(instalmentValue:InstalmentValue ){
+      
+      const dialogRef = this.composeDialog.open(EditInstalmentComponent);
+
+      dialogRef.componentInstance.instalmentValue = instalmentValue;
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.dataSource.data.push(result.object);
+          this.dataSource.filter = "";
+        }
+      });
     
   }
 

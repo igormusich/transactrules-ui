@@ -38,7 +38,7 @@ import { OptionValuesPipe } from './option-values.pipe';
 import { EditAccountDetailsComponent } from './edit-account-details/edit-account-details.component';
 import { EditAccountSchedulesComponent } from './edit-account-schedules/edit-account-schedules.component';
 import { EditAccountInstalmentsComponent } from './edit-account-instalments/edit-account-instalments.component';
-//import { ScheduleComponent } from 'app/pages/data/schedule/schedule.component';
+import { InstalmentModule } from 'app/pages/data/instalment/instalment.module';
 
 @NgModule({
   imports: [
@@ -52,6 +52,7 @@ import { EditAccountInstalmentsComponent } from './edit-account-instalments/edit
     CdkTableModule,
     MatTableModule,
     MatInputModule,
+    MatIconModule,
     MatPaginatorModule,
     MatDatepickerModule,
     MatSortModule,
@@ -68,7 +69,8 @@ import { EditAccountInstalmentsComponent } from './edit-account-instalments/edit
     MatTabsModule,
     MatStepperModule,
     CreateAccountRoutingModule,
-    ScheduleModule
+    ScheduleModule,
+    InstalmentModule
   ],
   declarations: [ OptionValuesPipe, EditAccountDetailsComponent, EditAccountSchedulesComponent, EditAccountInstalmentsComponent],
   exports: [],

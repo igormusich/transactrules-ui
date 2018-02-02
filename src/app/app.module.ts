@@ -16,7 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiClientService } from 'app/api-client-service';
 import { SelectedAccountTypeService } from './selected-account-type.service';
 import { AccountCreateService } from './account-create.service';
-
 @NgModule({
   imports: [
     BrowserModule.withServerTransition({ appId: 'elastic-ui' }),
