@@ -3,6 +3,9 @@
     <button type="button" mat-raised-button color="primary" (click)="onPreviousStep($event)">
       <mat-icon>navigate_before</mat-icon> Back
     </button>
+    <!-- <button type="button" mat-raised-button color="primary" (click)="onCalculate($event)">
+        <mat-icon>loop</mat-icon> Calculate
+      </button> -->
     <button type="button" mat-raised-button color="primary" (click)="onSave($event)">
       Save
       <mat-icon>navigate_next</mat-icon>
@@ -29,13 +32,13 @@
 
             <ng-container cdkColumnDef="amount">
               <mat-header-cell *cdkHeaderCellDef> Amount </mat-header-cell>
-              <mat-cell *cdkCellDef="let row"> {{row.amount}} </mat-cell>
+              <mat-cell *cdkCellDef="let row"> {{row.amount | currency }} </mat-cell>
             </ng-container>
 
             <ng-container cdkColumnDef="hasFixedValue">
               <mat-header-cell *cdkHeaderCellDef> Fixed </mat-header-cell>
               <mat-cell *cdkCellDef="let row"> 
-                  <mat-checkbox color="primary" value="{{row.hasFixedValue}}" disabled="true" (click)="$event.stopPropagation()"></mat-checkbox>  
+                  <mat-checkbox color="primary"  [checked]="row.hasFixedValue" disabled (click)="$event.stopPropagation()"></mat-checkbox>  
               </mat-cell>           
             </ng-container>
 
@@ -43,20 +46,14 @@
             <ng-container matColumnDef="actions">
               <mat-header-cell class="actions-cell" *matHeaderCellDef mat-sort-header></mat-header-cell>
               <mat-cell class="actions-cell" *matCellDef="let row">
-                <button type="button" mat-icon-button [matMenuTriggerFor]="actionsMenu" (click)="$event.stopPropagation()">
-                  <mat-icon>more_horiz</mat-icon>
+                <button type="button" mat-icon-button (click)="update(row)">
+                  <mat-icon>edit</mat-icon>
                 </button>
-
-                <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
-                  <button (click)="update(row)" mat-menu-item>
-                    <span>Modify</span>
-                  </button>
-                </mat-menu>
               </mat-cell>
             </ng-container>
 
             <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *cdkRowDef="let row; columns: displayedColumns;" (click)="update(row)" class="clickable"></mat-row>
+            <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
 
           </mat-table>
           <mat-paginator [length]="dataSource.data.length" [pageSize]="10">

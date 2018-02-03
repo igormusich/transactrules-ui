@@ -9,6 +9,7 @@ import { ScheduleControl } from 'app/pages/data/schedule/schedule-control';
 import { Account } from 'app/models/account.model';
 import { ControlValueAccessor } from '@angular/forms/src/directives/control_value_accessor';
 import { toIsoString } from 'app/core/utils/format-date';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'vr-edit-account-schedules',
@@ -25,7 +26,8 @@ export class EditAccountSchedulesComponent implements OnInit {
   constructor(public accountCreateService: AccountCreateService,
     private fb: FormBuilder,
     public apiClient: ApiClientService,
-    public router: Router ) { }
+    public router: Router,
+    private snackBar: MatSnackBar ) { }
 
   ngOnInit() {
     this.accountType = this.accountCreateService.getAccountType();
@@ -72,6 +74,16 @@ export class EditAccountSchedulesComponent implements OnInit {
       this.account= result.body;
       this.accountCreateService.setAccount(this.account);
       this.router.navigate(['/data/create-account/instalments']);  
+    }, error => {
+      var errorMessage:string= "Instalments can't be calculated";
+
+      if(error.status = 422){
+        if(error.error.globalErrors != null && error.error.globalErrors.length>0 ){
+          errorMessage = error.error.globalErrors[0].message;
+        }
+      }
+      
+      this.snackBar.open(errorMessage, null, {duration:3000});
     });
   }
 

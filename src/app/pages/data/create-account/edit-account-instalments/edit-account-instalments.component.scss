@@ -16,3 +16,15 @@ input.input-right-align::-webkit-inner-spin-button {
 input.input-right-align {
     -moz-appearance: textfield;
 }
+
+.mat-column-amount
+ {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mat-column-hasFixedValue
+ {
+  display: flex;
+  justify-content:center;
+}
