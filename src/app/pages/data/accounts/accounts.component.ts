@@ -33,7 +33,7 @@ export class AccountsComponent implements OnInit {
 
   scrollbar: any;
 
-  displayedColumns = ['accountTypeName','accountNumber'];
+  displayedColumns = ['accountTypeName','accountNumber','active'];
   dataSource: AccountSource;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

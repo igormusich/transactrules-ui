@@ -21,13 +21,7 @@ import { toDate, toIsoString }  from 'app/core/utils/format-date';
   ]
 })
 export class SelectScheduleComponent implements OnChanges,
-OnInit,
-DoCheck,
-AfterContentInit,
-AfterContentChecked,
-AfterViewInit,
-AfterViewChecked,
-OnDestroy, ControlValueAccessor {
+OnInit, ControlValueAccessor {
   
 
   @Input() schedule:Schedule;
@@ -68,12 +62,9 @@ OnDestroy, ControlValueAccessor {
       this.schedule = obj;
 
       if(this.form == null){
-          console.log(`writeValue - create new form and set to ${this.schedule}`);
           this.form = this.toFormGroup(this.schedule);
       }
-      else
-      {
-        console.log(`writeValue - set existing for to ${this.schedule}`);
+      else{
         this.form.setValue(this.schedule);
       } 
     }
@@ -81,43 +72,18 @@ OnDestroy, ControlValueAccessor {
      // Save the function as a property to call later here.
      registerOnChange(fn: (schedule: Schedule) => void): void {
       this.onChange = fn;
-      //console.log("registerOnChange");
     }
   
     // Allows Angular to register a function to call when the input has been touched.
     // Save the function as a property to call later here.
     registerOnTouched(fn: () => void): void {
       this.onTouched = fn;
-      //console.log("registerOnTouched");
     }
   
     setDisabledState?(isDisabled: boolean): void {
-      console.log("setDisabledState");
+      //console.log("setDisabledState");
     }
   
-    ngDoCheck() {
-      //console.log("ngDoCheck")
-    }
-  
-    ngAfterContentInit() {
-      //console.log("ngAfterContentInit");
-    }
-  
-    ngAfterContentChecked() {
-      //console.log("ngAfterContentChecked");
-    }
-  
-    ngAfterViewInit() {
-      //console.log("ngAfterViewInit");
-    }
-  
-    ngAfterViewChecked() {
-      //console.log("ngAfterViewChecked");
-    }
-  
-    ngOnDestroy() {
-      console.log("ngOnDestroy");
-    }
 
 
   ngOnInit() {
@@ -127,16 +93,16 @@ OnDestroy, ControlValueAccessor {
   ngOnChanges(changes: SimpleChanges) {
     //console.log(`ngOnChanges - data is ${this.schedule}`);
 
-    for (let key in changes) {
-      if(key!="placeholder"){
-        console.log(`${key} changed. 
-        Current: ${changes[key].currentValue}. 
-        Previous: ${changes[key].previousValue}`);
-      }
-    }
+    // for (let key in changes) {
+    //   if(key!="placeholder"){
+    //     console.log(`${key} changed. 
+    //     Current: ${changes[key].currentValue}. 
+    //     Previous: ${changes[key].previousValue}`);
+    //   }
+    // }
 
     if(this.form != null && this.schedule !=null){
-      console.log('ngOnChanges - setting form value to ${this.schedule}')
+      //console.log('ngOnChanges - setting form value to ${this.schedule}')
       this.form.setValue(this.schedule);
     }
   }

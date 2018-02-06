@@ -122,11 +122,26 @@ export class EditAccountInstalmentsComponent implements OnInit {
   onSave(){
     this.mapFormToAccount();
 
+    this.account.active = true;
+
     this.apiClient.saveAccount (this.account).subscribe( result => {
       this.account= result.body;
       this.accountCreateService.setAccount(this.account);
       this.router.navigate(['/']);  
-    });
+    },
+  error => {
+
+    var errorMessage:string= "Account can't be saved";
+
+      if(error.status = 422){
+        if(error.error.globalErrors != null && error.error.globalErrors.length>0 ){
+          errorMessage = error.error.globalErrors[0].message;
+        }
+      }
+      
+      this.snackBar.open(errorMessage, null, {duration:3000});
+    
+  });
   }
 
 
