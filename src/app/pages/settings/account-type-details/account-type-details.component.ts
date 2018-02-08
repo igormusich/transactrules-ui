@@ -60,8 +60,8 @@ export class AccountTypeDetailsComponent implements OnInit {
 
   createForm(){
     this.form = this.fb.group({
-      className: new FormControl ({ value:'', disabled:true }), // <--- the FormControl called "name"
-      labelName: new FormControl ({ value:'', disabled:true })
+      className: new FormControl ({ value:''}), // <--- the FormControl called "name"
+      labelName: new FormControl ({ value:'' })
     });
   }
 

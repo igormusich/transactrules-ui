@@ -96,10 +96,10 @@ export class AccountDetailsComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.fb.group({
-      accountNumber: new FormControl({ value: '', disabled: true }), // <--- the FormControl called "name"
-      active: new FormControl({ value: '', disabled: true }),
-      dateActivated: new FormControl({ value: '', disabled: true }),
-      accountTypeName: new FormControl({ value: '', disabled: true })
+      accountNumber: new FormControl({ value: '' }), // <--- the FormControl called "name"
+      active: new FormControl({ value: '' }),
+      dateActivated: new FormControl({ value: ''}),
+      accountTypeName: new FormControl({ value: ''})
     });
 
     this.transactions = this.apiClient.getTransactions(this.accountNumber, "2018-02-01", "2018-02-28", "Principal")
