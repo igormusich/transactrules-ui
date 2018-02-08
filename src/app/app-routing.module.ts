@@ -19,6 +19,10 @@ const routes: Routes = [
         loadChildren: 'app/pages/data/create-account/create-account.module#CreateAccountModule',
       },
       {
+        path: 'data/account-details/:accountNumber',
+        loadChildren: 'app/pages/data/account-details/account-details.module#AccountDetailsModule',
+      },
+      {
         path: 'data/calendars',
         loadChildren: 'app/pages/data/calendar/calendar.module#CalendarModule',
       },

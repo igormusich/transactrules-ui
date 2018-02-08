@@ -157,6 +157,8 @@ export class ApiClientService {
     let uri = `/accounts/${accountTypeName}/new`;
     let headers = new HttpHeaders();
     let params = new HttpParams();
+
+
     return this.sendRequest<Account>('get', uri, headers, params, null);
   }
 
@@ -165,11 +167,30 @@ export class ApiClientService {
   * @param id id
   * @return Full HTTP response as Observable
   */
-  public findAccountByAccountNumber(id: string): Observable<HttpResponse<AccountType[]>> {
+  public findAccountByAccountNumber(id: string): Observable<HttpResponse<Account>> {
     let uri = `/accounts/${id}`;
     let headers = new HttpHeaders();
     let params = new HttpParams();
-    return this.sendRequest<AccountType[]>('get', uri, headers, params, null);
+    return this.sendRequest<Account>('get', uri, headers, params, null);
+  }
+
+
+  /**
+  * Method findAccountByAccountNumber
+  * @param id id
+  * @return Full HTTP response as Observable
+  */
+  public getTransactions(accountNumber: string, fromDate:string, toDate:string, positionType:string): Observable<HttpResponse<Transaction[]>> {
+    let uri = `/accounts/${accountNumber}/transactions`;
+    let headers = new HttpHeaders();
+    let params = new HttpParams();
+//&positionType1=Principal
+    params.set('from', fromDate);
+    params.set('to', toDate);
+    params.set('positionType1', positionType);
+
+    return this.sendRequest<Transaction[]>('get', uri, headers, params, null);
+    //return this.http.get<Transaction[]>(this.domain +  uri,{ headers: headers.set('Accept', 'application/json'), params: params, observe: 'response' });
   }
 
   private sendRequest<T>(method: string, uri: string, headers: HttpHeaders, params: HttpParams, body: any): Observable<HttpResponse<T>> {

@@ -11,6 +11,7 @@ export class Account {
   accountNumber: string;
   accountTypeName: string;
   active: boolean;
+  dateActivated: string;
   amounts: Map<string,AmountValue> = new Map<string,AmountValue>() ;
   calendarNames: string[];
   dates: Map<string,DateValue> = new Map<string,DateValue>() ;

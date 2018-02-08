@@ -41,7 +41,8 @@
         </ng-container>
 
         <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-row *cdkRowDef="let row; columns: displayedColumns;" (click)="display(row)" class="clickable" ></mat-row>
+        
       </mat-table>
       <mat-paginator [length]="dataSource.resultsLength"
                     [pageSize]="10">

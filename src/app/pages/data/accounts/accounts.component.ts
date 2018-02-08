@@ -54,6 +54,10 @@ export class AccountsComponent implements OnInit {
   ngOnDestroy() {
   }
 
+  display(account:Account ){
+    this.router.navigate(['data/account-details/' + account.accountNumber]); 
+  }
+
   createAccount(){
     const dialogRef = this.composeDialog.open(SelectAccountTypeComponent);
     dialogRef.afterClosed().subscribe(result => {
