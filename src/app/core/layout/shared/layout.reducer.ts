@@ -16,7 +16,7 @@ export interface State {
 }
 
 const initialState: State = {
-  layout: 'gamma',
+  layout: 'beta',
   sidenavOpen: true,
   sidenavCollapsed: true,
   sidenavAlign: 'start',

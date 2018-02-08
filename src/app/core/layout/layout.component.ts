@@ -18,7 +18,7 @@ import { ScrollbarService } from '../scrollbar/scrollbar.service';
 })
 export class LayoutComponent implements OnInit, OnDestroy {
 
-  layout = 'gamma';
+  layout = 'beta';
 
   sidenavOpen$: Observable<boolean>;
   sidenavCollapsed$: Observable<boolean>;
