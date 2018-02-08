@@ -95,7 +95,11 @@
                   <mat-header-row *cdkHeaderRowDef="transactionDisplayedColumns"></mat-header-row>
                   <mat-row *cdkRowDef="let row; columns: transactionDisplayedColumns;"></mat-row>
                 </mat-table>
-                <mat-paginator [length]="transactionDataSource.data.length" [pageSize]="10">
+
+                <mat-paginator #transactionPaginator [length]="transactionDataSource.data.length" 
+                        [pageIndex]="0"
+                        [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 25, 100]" >
                 </mat-paginator>
               </vr-list>
             </mat-tab>
@@ -140,8 +144,12 @@
                   <mat-row *cdkRowDef="let row; columns: instalmentDisplayedColumns;"></mat-row>
 
                 </mat-table>
-                <mat-paginator [length]="instalmentDataSource.data.length" [pageSize]="10">
+                <mat-paginator #instalmentPaginator [length]="instalmentDataSource.data.length"
+                        [pageIndex]="0"
+                        [pageSize]="10"
+                        [pageSizeOptions]="[5, 10, 25, 100]" >
                 </mat-paginator>
+                
               </vr-list>
             </mat-tab>
           </mat-tab-group>

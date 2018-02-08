@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ApiClientService } from 'app/api-client-service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Account, Transaction, InstalmentValue, InstalmentSet } from 'app/models';
-import { MatTableDataSource } from "@angular/material";
+import { MatTableDataSource , MatPaginator} from "@angular/material";
 import { Observable } from 'rxjs/Observable';
 import { HttpResponse } from '@angular/common/http/src/response';
 import { ROUTE_TRANSITION } from '../../../app.animation';
@@ -28,19 +28,27 @@ export class AccountDetailsComponent implements OnInit {
   transactionDisplayedColumns = ['image', 'actionDate', 'valueDate', 'transactionType', 'amount', 'balance', 'actions'];
   instalmentDisplayedColumns = ['date', 'amount', 'hasFixedValue', 'actions'];
 
+  @ViewChild(MatPaginator) transactionPaginator: MatPaginator;
+  @ViewChild('instalmentPaginator') instalmentPaginator: MatPaginator;
+
   constructor(private route: ActivatedRoute,
     public apiClient: ApiClientService,
     private fb: FormBuilder) {
 
     this.transactionDataSource = new MatTableDataSource<Transaction>([]);
+    this.transactionDataSource.paginator = this.transactionPaginator;
     this.instalmentDataSource = new MatTableDataSource<InstalmentValue>([]);
+    this.instalmentDataSource.paginator = this.instalmentPaginator;
 
     this.route.params.subscribe(
       params => {
         this.accountNumber = params['accountNumber'];
         this.apiClient.findAccountByAccountNumber(this.accountNumber).subscribe(result => {
           this.account = result.body;
-          this.instalmentDataSource = new MatTableDataSource<InstalmentValue>(this.getInstalmentSetValues(this.account));
+          this.instalmentDataSource.data = this.getInstalmentSetValues(this.account);
+          this.instalmentDataSource.paginator = this.instalmentPaginator;
+          this.instalmentDataSource.filter= "";
+
           this.form.setValue(
             {
               accountNumber: this.account.accountNumber,
@@ -96,7 +104,9 @@ export class AccountDetailsComponent implements OnInit {
 
     this.transactions = this.apiClient.getTransactions(this.accountNumber, "2018-02-01", "2018-02-28", "Principal")
     this.transactions.subscribe(response => {
-      this.transactionDataSource = new MatTableDataSource<Transaction>(response.body);
+      this.transactionDataSource.data = response.body;
+      this.transactionDataSource.paginator = this.transactionPaginator;
+      this.transactionDataSource.filter = "";
     })
   }
 
