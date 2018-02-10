@@ -99,6 +99,14 @@ export class AccountTypeDetailsComponent implements OnInit {
     });
   }
 
+  updatePositionType(position:PositionType){
+
+  }
+
+  deletePositionType(position:PositionType){
+
+  }
+
   createAmountType() {
     /*const dialogRef = this.composeDialog.open(PositionTypeDetailsComponent);
     dialogRef.afterClosed().subscribe(result => {

@@ -114,15 +114,6 @@ export class AccountDetailsComponent implements OnInit {
   getPrincipalPosition(positionTypes:PositionType[] ):string{
     var principal:PositionType = positionTypes.find(pt=> pt.principal === true);
 
-    // for (let i = 0; i < positionTypes.length; i++) {
-    //   var iter = positionTypes[i];
-
-    //   if (iter.principal === true) {
-    //     principal = iter;
-    //     break;
-    //   }
-    // }
-
     return principal.propertyName;
   }
 

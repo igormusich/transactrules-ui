@@ -49,6 +49,9 @@ export class AccountTypeComponent implements OnInit {
     private selectedAccountTypeService: SelectedAccountTypeService,
     private snackBar: MatSnackBar ) {
 
+      this.dataSource = new MatTableDataSource<AccountType>([]);
+      this.dataSource.paginator = this.paginator;
+
   }
 
   ngOnInit() {
@@ -56,6 +59,8 @@ export class AccountTypeComponent implements OnInit {
     this.items = this.apiService.findAllAccountTypes();
     this.items.subscribe( accountTypes => {
       this.dataSource = new MatTableDataSource<AccountType>( accountTypes);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.filter = "";
     } )
   }
 
